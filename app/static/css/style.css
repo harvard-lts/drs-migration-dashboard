@@ -1,0 +1,441 @@
+/* Local Font Load-in */
+
+@font-face {
+  font-family: "Trueno";
+  src: url("https://library.harvard.edu/themes/custom/harvard/assets/fonts/truenorg-webfont.woff2") format("woff2"), url("https://library.harvard.edu/themes/custom/harvard/assets/fonts/truenorg-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal
+}
+
+@font-face {
+  font-family: "Trueno";
+  src: url("https://library.harvard.edu/themes/custom/harvard/assets/fonts/truenorgit-webfont.woff2") format("woff2"), url("https://library.harvard.edu/themes/custom/harvard/assets/fonts/truenorgit-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: italic
+}
+
+@font-face {
+  font-family: "Trueno";
+  src: url("https://library.harvard.edu/themes/custom/harvard/assets/fonts/truenoultlt-webfont.woff2") format("woff2"), url("https://library.harvard.edu/themes/custom/harvard/assets/fonts/truenoultlt-webfont.woff") format("woff");
+  font-weight: 100;
+  font-style: normal
+}
+
+@font-face {
+  font-family: "Trueno";
+  src: url("https://library.harvard.edu/themes/custom/harvard/assets/fonts/truenoultltit-webfont.woff2") format("woff2"), url("https://library.harvard.edu/themes/custom/harvard/assets/fonts/truenoultltit-webfont.woff") format("woff");
+  font-weight: 100;
+  font-style: italic
+}
+
+@font-face {
+  font-family: "Trueno";
+  src: url("https://library.harvard.edu/themes/custom/harvard/assets/fonts/truenolt-webfont.woff2") format("woff2"), url("https://library.harvard.edu/themes/custom/harvard/assets/fonts/truenolt-webfont.woff") format("woff");
+  font-weight: 200;
+  font-style: normal
+}
+
+@font-face {
+  font-family: "Trueno";
+  src: url("https://library.harvard.edu/themes/custom/harvard/assets/fonts/truenoltit-webfont.woff2") format("woff2"), url("https://library.harvard.edu/themes/custom/harvard/assets/fonts/truenoltit-webfont.woff") format("woff");
+  font-weight: 200;
+  font-style: italic
+}
+
+@font-face {
+  font-family: "Trueno";
+  src: url("https://library.harvard.edu/themes/custom/harvard/assets/fonts/truenosbd-webfont.woff2") format("woff2"), url("https://library.harvard.edu/themes/custom/harvard/assets/fonts/truenosbd-webfont.woff") format("woff");
+  font-weight: 600;
+  font-style: normal
+}
+
+@font-face {
+  font-family: "Trueno";
+  src: url("https://library.harvard.edu/themes/custom/harvard/assets/fonts/truenosbdit-webfont.woff2") format("woff2"), url("https://library.harvard.edu/themes/custom/harvard/assets/fonts/truenosbdit-webfont.woff") format("woff");
+  font-weight: 600;
+  font-style: italic
+}
+
+@font-face {
+  font-family: "Trueno";
+  src: url("https://library.harvard.edu/themes/custom/harvard/assets/fonts/truenobd-webfont.woff2") format("woff2"), url("https://library.harvard.edu/themes/custom/harvard/assets/fonts/truenobd-webfont.woff") format("woff");
+  font-weight: 700;
+  font-style: normal
+}
+
+@font-face {
+  font-family: "Trueno";
+  src: url("https://library.harvard.edu/themes/custom/harvard/assets/fonts/truenobdit-webfont.woff2") format("woff2"), url("https://library.harvard.edu/themes/custom/harvard/assets/fonts/truenobdit-webfont.woff") format("woff");
+  font-weight: 700;
+  font-style: italic
+}
+
+@font-face {
+  font-family: "Trueno";
+  src: url("https://library.harvard.edu/themes/custom/harvard/assets/fonts/truenoblk-webfont.woff2") format("woff2"), url("https://library.harvard.edu/themes/custom/harvard/assets/fonts/truenoblk-webfont.woff") format("woff");
+  font-weight: 800;
+  font-style: normal
+}
+
+@font-face {
+  font-family: "Trueno";
+  src: url("https://library.harvard.edu/themes/custom/harvard/assets/fonts/truenoblkit-webfont.woff2") format("woff2"), url("https://library.harvard.edu/themes/custom/harvard/assets/fonts/truenoblkit-webfont.woff") format("woff");
+  font-weight: 800;
+  font-style: italic
+}
+
+/* Global Font Smoothing */
+html {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+/* Global Page Elements */
+
+body {
+  color: #1e1e1e;
+  font-family: 'Lora', Georgia, Times New Roman, serif;
+  font-size: 19px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Trueno', Arial, Helvetica, sans-serif;
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 60px;
+  line-height: 74px;
+  margin-bottom: 20px;
+  color: #1e1e1e;
+}
+
+h2 {
+  font-size: 32px;
+  line-height: 42px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2.4px;
+  color: #1e1e1e;
+}
+
+h3 {
+  font-size: 20px;
+  line-height: 30px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #1e1e1e;
+}
+
+p {
+  line-height: 1.68421;
+}
+
+p.fine {
+  font-style: italic;
+}
+
+a {
+  hyphens: auto;
+  overflow-wrap: break-word;
+  word-break: break-all;
+  word-break: break-word;
+  word-wrap: break-word;
+  -ms-word-break: break-all;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  border-bottom: 3px solid transparent;
+  color: #0579b8;
+  font-family: 'Trueno', Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  text-decoration: none;
+  -webkit-transition: border 0.28s cubic-bezier(0.28,1.08,1,0.96);
+  transition: border 0.28s cubic-bezier(0.28,1.08,1,0.96);
+}
+
+a:hover {
+  border-bottom: 3px solid rgba(5,121,184,0.3);
+  color: #0579b8;
+  text-decoration: none;
+}
+
+/* Child Theme Ribbon */
+
+header h1 {
+  margin-bottom: 0;
+}
+
+h1 #content, h1 #content:hover, h1 #content:focus {
+  font-family: 'Trueno', Arial, Helvetica, sans-serif;
+  font-size: 24px;
+  line-height: 1.3;
+  color: #fff;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 40px;
+  margin: 0;
+  padding: 10px 25px;
+  background: linear-gradient(-46deg,#0579b8 0%,#2a5280 100%);
+  text-decoration:none;
+}
+
+span.title-verify {
+  font-family: 'Lora', Georgia, Times New Roman, serif;
+  font-style: italic;
+}
+
+.logo-background {
+  background-color: #1e1e1e;
+  text-align: center;
+}
+
+.logo-background img {
+  margin: 19px auto;
+}
+
+.header-padding{
+  margin-right: 0px;
+  margin-left: 0px;
+}
+
+/* User Account */
+
+#user-account {
+  font-family: 'Trueno', Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  display: inline-block;
+  padding: 15px 0;
+}
+
+#user-account a {
+  border-bottom: 3px solid transparent;
+  color: #1e1e1e;
+  -webkit-transition: border 0.28s cubic-bezier(0.28,1.08,1,0.96);
+  transition: border 0.28s cubic-bezier(0.28,1.08,1,0.96);
+}
+
+#user-account a:hover {
+  border-bottom: 3px solid rgba(30,30,30,0.3);
+  text-decoration: none;
+}
+
+#user-account .row.justify-content-end {
+  margin-right: 0;
+}
+
+#user-name {
+  text-align: right;
+}
+
+#logout {
+  font-weight: bold;
+  border-left: 1px solid #C0C0C0;
+}
+
+/* Form Elements */
+
+form label {
+  font-family: 'Trueno', Arial, Helvetica, sans-serif;
+  font-size: 1.3em;
+  font-weight: 200;
+}
+
+form input[type="number"], form input[type="email"], form input[type="password"] {
+  border: 1px solid #1e1e1e;
+  border-radius: 3px;
+  margin-top: 0.75em;
+  min-height: 45px;
+  padding: 0 20px;
+  width: 100%;
+}
+
+form input[type="submit"], form button[type="submit"] {
+  color: white;
+  background-color: #0579b8;
+  border: 2px solid transparent;
+  border-color: transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-block;
+  font-family: 'Trueno', Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1.17px;
+  line-height: 19px;
+  padding: 12px 23px;
+  text-decoration: none;
+  text-transform: uppercase;
+  -webkit-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+
+input#huid, input#emailAddress, input#password {
+  display: block;
+  margin: 2em auto;
+  width: 80%;
+}
+
+input#huid-verify, button#login-button {
+  margin: 0.5em auto;
+  padding: 12px 18px 12px 23px;
+}
+
+form input[type="submit"]:hover {
+  background-color: #2a5280;
+}
+
+.link-button {
+  background-color: #0579b8;
+  border: 2px solid transparent;
+  border-color: transparent;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: 'Trueno', Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1.17px;
+  line-height: 19px;
+  padding: 12px 23px;
+  text-decoration: none;
+  text-transform: uppercase;
+  -webkit-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+
+.link-button:hover {
+  background-color: #2a5280;
+  color: #fff;
+  text-decoration: none;
+}
+
+#reset a.button {
+  background-color: #ffffff;
+  border: 1px solid #1e1e1e;
+  border-radius: 4px;
+  color: #1e1e1e;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.17px;
+  line-height: 16px;
+  padding: 5px 9px;
+  text-decoration: none;
+  text-transform: uppercase;
+  -webkit-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+
+#reset a.button:hover {
+  background-color: #6c6c6c;
+  color: #ffffff;
+}
+
+#reset p.fine {
+  font-size: 16px;
+}
+
+/* Results block */
+
+#result-message p {
+  font-family: 'Trueno', Arial, Helvetica, sans-serif;
+  font-size: 1.3em;
+  font-weight: 200;
+}
+
+.material-icons.jumbo {
+  font-size: 144px;
+}
+
+.result-data {
+  font-family: 'Trueno', Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  padding-top: 20px;
+}
+
+.result-label {
+  font-weight: 700;
+}
+
+
+/* Remove the navbar's default margin-bottom and rounded borders */
+.navbar {
+  margin-bottom: 0;
+  border-radius: 0;
+}
+
+/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+.row.content {height: 450px}
+
+/* Set gray background color and 100% height */
+.sidenav {
+  padding-top: 20px;
+  background-color: #f1f1f1;
+  height: 100%;
+}
+
+/* Set black background color, white text and some padding */
+footer {
+  background-color: #1e1e1e;
+  color: #ffffff;
+  font-family: 'Trueno', Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  padding: 15px;
+}
+
+footer a {
+  border-bottom: 3px solid transparent;
+  color: #ffffff;
+  -webkit-transition: border 0.28s cubic-bezier(0.28,1.08,1,0.96);
+  transition: border 0.28s cubic-bezier(0.28,1.08,1,0.96);
+}
+
+footer a:hover {
+  border-bottom: 3px solid rgba(255,255,255,0.3);
+  color: #f3f3f3;
+  text-decoration: none;
+}
+
+#feedback {
+  text-align: right;
+}
+
+/* On small screens, set height to 'auto' for sidenav and grid */
+@media screen and (max-width: 767px) {
+  .sidenav {
+    height: auto;
+    padding: 15px;
+  }
+  .row.content {height:auto;}
+
+  .logo-background {
+    text-align: left;
+  }
+  .logo-background img {
+    margin-left: 25px;
+  }
+  #feedback {
+    text-align: left;
+  }
+}
+
+/* Custom styles for material icons */
+.material-icons.allow { color: #33b55f; }
+.material-icons.deny { color: #ea001b; }
+.material-icons.error { color: #217eb7; }
+
+/* Remove arrows from number fields in Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Remove arrows from number fields in Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
