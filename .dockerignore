@@ -1,0 +1,6 @@
+logs/
+.bash_history
+# Environment variables
+.env
+env-example.txt
+*.log

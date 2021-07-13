@@ -1,0 +1,24 @@
+# Pycache
+__pycache__
+# Environment variables
+.env
+# JWT Keys
+jwtkeys.py
+# Logs
+*.log
+/logs/*
+!/logs/.keep
+# Editor configs
+*.editorconfig
+.project
+.pydevproject
+.vscode/
+# Local cache
+.DS_Store
+.bash_history
+.cache/
+.local/
+supervisord.pid
+
+.idea
+/.idea

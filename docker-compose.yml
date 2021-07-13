@@ -1,0 +1,14 @@
+# Build image
+# `docker-compose -f docker-compose.yml build`
+# Push to registry
+# `docker-compose -f docker-compose.yml push`
+
+version: '3.8'
+
+services:
+
+  drs-migration-dashboard:
+    image: registry.lts.harvard.edu/lts/drs-migration-dashboard:0.0.1
+    build:
+      context: .
+      dockerfile: DockerfilePub
