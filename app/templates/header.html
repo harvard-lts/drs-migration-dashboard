@@ -1,15 +1,16 @@
-<div class="row no-gutters" class="head header-padding">
-  <div class="col-lg-3 col-md-6 order-md-12 logo-background">
-    <img src="{{ url_for('static', filename='images/logo-hl-h.svg') }}" alt="Harvard logo" class="img-fluid">
+<section class="hl__header-child">
+  <div>
+    <a href="#content" accesskey="S" onclick="$('#content').focus();" class="sr-only sr-only-focusable">Skip to Main Content</a>
   </div>
-  <div class="col-lg-9 col-md-6 order-md-1">
-    <div>
-      <a href="#content" accesskey="S" onclick="$('#content').focus();" class="sr-only sr-only-focusable">Skip to Main Content</a>
-    </div>
-    <h1>
-      <div id="content" aria-label="content">
-        <strong>DRS</strong><span class="title-verify">Migration Dashboard</span>
-      </div>
-    </h1>
+  <div class="hl__header-child__title ">
+    <div href="/" title="Digital Reserves System Migration Dashboard"><span>DRS</span> Migration</div>
+    <!-- <a href="/" title="Digital Reserves System Migration Dashboard"><span>DRS</span> Migration</a> -->
   </div>
-</div>
+  <div class="hl__header-child__logo">
+    <section class="hl__linked-image">
+      <a href="https://library.harvard.edu/" title="Harvard Library">
+        <img class="hl__image " alt="Harvard Library Logo" height="24" width="270" src="{{ url_for('static', filename='images/logo-hl-h.svg') }}"/>
+      </a>
+  </section>
+  </div>
+</section>

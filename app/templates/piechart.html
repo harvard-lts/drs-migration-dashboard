@@ -6,21 +6,195 @@
 <div class="container">
   <div class="row my-3">
     <div class="col">
-      <h4>Welcome To DRS Dashboard</h4>
+      <h1>The Great DRS Migration Dashboard</h1>
+      <p>Welcome to the DRS Data Migration Status Dashboard. Statistics are updated hourly. For an explanation of each status, check the <a href="#" data-toggle="modal" data-target="#definitions">status definitions</a>. Also, refer to the <a href="#" data-toggle="modal" data-target="#diagram">status diagram</a> for a visual representation of the migration workflow.</p>
     </div>
   </div>
+
+  <p class="hl__time-stamp">Last update: 07/13/2021, 1:03 PM</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   <div class="row py-2">
+    <!-- PROGRESS BY BYTES -->
     <div class="col-md-4 py-1">
+      <div class="card">
+        <ul class="nav nav-tabs" id="bytesTabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="bytes-chart-tab" data-toggle="tab" data-target="#bytes-chart" type="button" role="tab" aria-controls="bytes-chart" aria-selected="true">Chart</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="bytes-numbers-tab" data-toggle="tab" data-target="#bytes-numbers" type="button" role="tab" aria-controls="bytes-numbers" aria-selected="false">Numbers</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="bytes-trends-tab" data-toggle="tab" data-target="#bytes-trends" type="button" role="tab" aria-controls="bytes-trends" aria-selected="false">Trends</button>
+          </li>
+        </ul>
+        <div class="card-body">
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="bytes-chart" role="tabpanel" aria-labelledby="bytes-chart-tab">
+              <canvas id="bytesChart"></canvas>
+            </div>
+            <div class="tab-pane fade" id="bytes-numbers" role="tabpanel" aria-labelledby="bytes-numbers-tab">Insert table</div>
+            <div class="tab-pane fade" id="bytes-trends" role="tabpanel" aria-labelledby="bytes-trends-tab">Insert line graph</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROGRESS BY OBJECTS -->
+    <div class="col-md-4 py-1">
+      <div class="card">
+        <ul class="nav nav-tabs" id="objectsTabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="objects-chart-tab" data-toggle="tab" data-target="#objects-chart" type="button" role="tab" aria-controls="objects-chart" aria-selected="true">Chart</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="objects-numbers-tab" data-toggle="tab" data-target="#objects-numbers" type="button" role="tab" aria-controls="objects-numbers" aria-selected="false">Numbers</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="objects-trends-tab" data-toggle="tab" data-target="#objects-trends" type="button" role="tab" aria-controls="objects-trends" aria-selected="false">Trends</button>
+          </li>
+        </ul>
+        <div class="card-body">
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="objects-chart" role="tabpanel" aria-labelledby="objects-chart-tab">
+              <canvas id="objectsChart"></canvas>
+            </div>
+            <div class="tab-pane fade" id="objects-numbers" role="tabpanel" aria-labelledby="objects-numbers-tab">Insert table</div>
+            <div class="tab-pane fade" id="objects-trends" role="tabpanel" aria-labelledby="objects-trends-tab">Insert line graph</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROGRESS BY FILES -->
+    <div class="col-md-4 py-1">
+      <div class="card">
+        <ul class="nav nav-tabs" id="filesTabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="files-chart-tab" data-toggle="tab" data-target="#files-chart" type="button" role="tab" aria-controls="files-chart" aria-selected="true">Chart</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="files-numbers-tab" data-toggle="tab" data-target="#files-numbers" type="button" role="tab" aria-controls="files-numbers" aria-selected="false">Numbers</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="files-trends-tab" data-toggle="tab" data-target="#files-trends" type="button" role="tab" aria-controls="files-trends" aria-selected="false">Trends</button>
+          </li>
+        </ul>
+        <div class="card-body">
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="files-chart" role="tabpanel" aria-labelledby="files-chart-tab">Insert doughnut chart</div>
+            <div class="tab-pane fade" id="files-numbers" role="tabpanel" aria-labelledby="files-numbers-tab">Insert table</div>
+            <div class="tab-pane fade" id="files-trends" role="tabpanel" aria-labelledby="files-trends-tab">
+              <canvas id="line1"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="row py-2">
+    <div class="col-md-6 py-1">
+      <div class="card">
+        <div class="card-body">
+          <canvas id="line2"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row py-2">
+    <div class="col-md-6 py-1">
       <div class="card">
         <div class="card-body">
           <canvas id="pie1"></canvas>
         </div>
       </div>
     </div>
-    <div class="col-md-4 py-1">
+    <div class="col-md-6 py-1">
       <div class="card">
         <div class="card-body">
           <canvas id="pie2"></canvas>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <!-- Modal: status definitions -->
+  <div class="modal fade" id="definitions" tabindex="-1" role="dialog" aria-labelledby="definitionsLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="definitionsLabel">Status definitions</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <dl class="row">
+            <dt class="col-sm-3 text-truncate">Pending</dt>
+            <dd class="col-sm-9">Files that are staged for migration</dd>
+
+            <dt class="col-sm-3 text-truncate">In process</dt>
+            <dd class="col-sm-9">Files that are currently being migrated</dd>
+
+            <dt class="col-sm-3 text-truncate">Failure</dt>
+            <dd class="col-sm-9">Files that did not successfully migrate</dd>
+
+            <dt class="col-sm-3 text-truncate">Unrecoverable</dt>
+            <dd class="col-sm-9">Files that will not be migrated because they are flagged for deletion</dd>
+
+            <dt class="col-sm-3 text-truncate">Sensitive</dt>
+            <dd class="col-sm-9">Files that will be migrated later...once we handle content that requires encryptions</dd>
+
+            <dt class="col-sm-3 text-truncate">On hold</dt>
+            <dd class="col-sm-9">Files that will be migrated in a future batch</dd>
+
+            <dt class="col-sm-3 text-truncate">Success</dt>
+            <dd class="col-sm-9">Files that have been successfully migrated</dd>
+
+            <dt class="col-sm-3 text-truncate">Verified</dt>
+            <dd class="col-sm-9">Files that have been successfully migrated and verified as correct</dd>
+
+            <dt class="col-sm-3 text-truncate">Verified failed</dt>
+            <dd class="col-sm-9">Files that have been successfully migrated but have failed verification</dd>
+          </dl>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: status diagram -->
+  <div class="modal fade" id="diagram" tabindex="-1" role="dialog" aria-labelledby="diagramLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="diagramLabel">Diagram of statuses</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <img class="hl__image " alt="diagram of migration statuses" src="{{ url_for('static', filename='images/status-diagram.png') }}"/>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
