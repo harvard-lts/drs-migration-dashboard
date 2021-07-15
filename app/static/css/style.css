@@ -95,7 +95,7 @@ html {
 /* Global Page Elements */
 
 body {
-  color: #1e1e1e;
+  color: #414141;
   font-family: 'Lora', Georgia, Times New Roman, serif;
   font-size: 19px;
 }
@@ -445,6 +445,8 @@ input[type=number] {
 
 
 /* Maura's styles */
+
+/* header */
 @media (min-width: 621px) {
   .hl__header-child {
     display: flex;
@@ -520,6 +522,10 @@ input[type=number] {
   max-width: 100%;
 }
 
+/* dashboard size */
+.container {
+  max-width: 1450px;
+}
 div.container-fluid {
   padding-bottom: 80px;
 }
@@ -638,4 +644,40 @@ div.container-fluid {
   background-color: #6c6c6c;
   border-color: #6c6c6c;
   color: white;
+}
+
+
+/* tabs */
+.nav-link {
+  font-family: 'Trueno', Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  line-height: 16px;
+  text-transform: uppercase;
+  color: #1e1e1e;
+  font-weight: 700;
+  letter-spacing: 1.17px;
+}
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+  color:#1e1e1e;
+  background-color:#fff;
+  border-color:#dee2e6 #dee2e6 #fff;
+}
+.table {
+  width:100%;
+  margin-bottom:1rem;
+  color:#414141;
+  font-size: 17px;
+}
+.tab-pane p {
+  font-family: 'Trueno', Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  line-height: 1.5;
+  font-weight: 700;
+  color: #1e1e1e;
+  text-align: center;
+  padding-top: 8px;
+}
+th {
+  font-weight: normal;
 }
