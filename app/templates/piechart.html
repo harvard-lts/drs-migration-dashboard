@@ -6,7 +6,7 @@
 <div class="container">
   <div class="row my-3">
     <div class="col">
-      <h1>The Great DRS Migration Dashboard</h1>
+      <h1>DRS Migration Dashboard</h1>
       <p>Welcome to the DRS Data Migration Status Dashboard. Statistics are updated hourly. For an explanation of each status, check the <a href="#" data-toggle="modal" data-target="#definitions">status definitions</a>. Also, refer to the <a href="#" data-toggle="modal" data-target="#diagram">status diagram</a> for a visual representation of the migration workflow.</p>
     </div>
   </div>
@@ -37,7 +37,42 @@
               <p>Progress by bytes</p>
               <table class="table table-sm"><tbody></tbody></table>
             </div>
-            <div class="tab-pane fade" id="bytes-trends" role="tabpanel" aria-labelledby="bytes-trends-tab">Insert line graph</div>
+            <div class="tab-pane fade" id="bytes-trends" role="tabpanel" aria-labelledby="bytes-trends-tab">
+              Insert line graph
+              <canvas id="bytesTrends"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROGRESS BY FILES -->
+    <div class="col-md-4 py-1">
+      <div class="card h-100">
+        <ul class="nav nav-tabs" id="filesTabs" role="tablist">
+          <li class="nav-item active" role="presentation">
+            <button class="nav-link" id="files-chart-tab" data-toggle="tab" data-target="#files-chart" type="button" role="tab" aria-controls="files-chart" aria-selected="true">Chart</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="files-numbers-tab" data-toggle="tab" data-target="#files-numbers" type="button" role="tab" aria-controls="files-numbers" aria-selected="false">Numbers</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="files-trends-tab" data-toggle="tab" data-target="#files-trends" type="button" role="tab" aria-controls="files-trends" aria-selected="false">Trends</button>
+          </li>
+        </ul>
+        <div class="card-body">
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="files-chart" role="tabpanel" aria-labelledby="files-chart-tab">
+              <canvas id="filesChart"></canvas>
+            </div>
+            <div class="tab-pane fade" id="files-numbers" role="tabpanel" aria-labelledby="files-numbers-tab">
+              <p>Progress by files</p>
+              <table class="table table-sm"><tbody></tbody></table>
+            </div>
+            <div class="tab-pane fade" id="files-trends" role="tabpanel" aria-labelledby="files-trends-tab">
+              Insert line graph
+              <canvas id="filesTrends"></canvas>
+            </div>
           </div>
         </div>
       </div>
@@ -66,38 +101,9 @@
               <p>Progress by objects</p>
               <table class="table table-sm"><tbody></tbody></table>
             </div>
-            <div class="tab-pane fade" id="objects-trends" role="tabpanel" aria-labelledby="objects-trends-tab">Insert line graph</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- PROGRESS BY FILESIZE -->
-    <div class="col-md-4 py-1">
-      <div class="card h-100">
-        <ul class="nav nav-tabs" id="filesizeTabs" role="tablist">
-          <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="filesize-chart-tab" data-toggle="tab" data-target="#filesize-chart" type="button" role="tab" aria-controls="filesize-chart" aria-selected="true">Chart</button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="filesize-numbers-tab" data-toggle="tab" data-target="#filesize-numbers" type="button" role="tab" aria-controls="filesize-numbers" aria-selected="false">Numbers</button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="filesize-trends-tab" data-toggle="tab" data-target="#filesize-trends" type="button" role="tab" aria-controls="filesize-trends" aria-selected="false">Trends</button>
-          </li>
-        </ul>
-        <div class="card-body">
-          <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="filesize-chart" role="tabpanel" aria-labelledby="filesize-chart-tab">
-              <canvas id="filesizeChart"></canvas>
-            </div>
-            <div class="tab-pane fade" id="filesize-numbers" role="tabpanel" aria-labelledby="filesize-numbers-tab">
-              <p>Progress by file size</p>
-              <table class="table table-sm"><tbody></tbody></table>
-            </div>
-            <div class="tab-pane fade" id="filesize-trends" role="tabpanel" aria-labelledby="filesize-trends-tab">
-              <!-- <canvas id="line1"></canvas> -->
+            <div class="tab-pane fade" id="objects-trends" role="tabpanel" aria-labelledby="objects-trends-tab">
               Insert line graph
+              <canvas id="objectsTrends"></canvas>
             </div>
           </div>
         </div>
@@ -157,7 +163,7 @@
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="diagramLabel">Diagram of statuses</h5>
+          <h5 class="modal-title" id="diagramLabel">Status diagram</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
