@@ -18,25 +18,25 @@
       <div class="card h-100">
         <ul class="nav nav-tabs" id="bytesTabs" role="tablist">
           <li class="nav-item" role="presentation">
-            <button class="nav-link" id="bytes-chart-tab" data-toggle="tab" data-target="#bytes-chart" type="button" role="tab" aria-controls="bytes-chart" aria-selected="true">Chart</button>
+            <button class="nav-link active" id="bytes-chart-tab" data-toggle="tab" data-target="#bytes-chart" type="button" role="tab" aria-controls="bytes-chart" aria-selected="true">Chart</button>
           </li>
           <li class="nav-item" role="presentation">
             <button class="nav-link" id="bytes-numbers-tab" data-toggle="tab" data-target="#bytes-numbers" type="button" role="tab" aria-controls="bytes-numbers" aria-selected="false">Numbers</button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="bytes-trends-tab" data-toggle="tab" data-target="#bytes-trends" type="button" role="tab" aria-controls="bytes-trends" aria-selected="false">Trends</button>
+            <button class="nav-link" id="bytes-trends-tab" data-toggle="tab" data-target="#bytes-trends" type="button" role="tab" aria-controls="bytes-trends" aria-selected="false">Trends</button>
           </li>
         </ul>
         <div class="card-body">
           <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade" id="bytes-chart" role="tabpanel" aria-labelledby="bytes-chart-tab">
+            <div class="tab-pane fade show active" id="bytes-chart" role="tabpanel" aria-labelledby="bytes-chart-tab">
               <canvas id="bytesChart"></canvas>
             </div>
             <div class="tab-pane fade" id="bytes-numbers" role="tabpanel" aria-labelledby="bytes-numbers-tab">
               <p>Progress by bytes</p>
               <table class="table table-sm"><tbody></tbody></table>
             </div>
-            <div class="tab-pane fade show active" id="bytes-trends" role="tabpanel" aria-labelledby="bytes-trends-tab">
+            <div class="tab-pane fade" id="bytes-trends" role="tabpanel" aria-labelledby="bytes-trends-tab">
               <canvas id="bytesTrends"></canvas>
               <a href="#" data-toggle="modal" data-target="#bytesModal">Click to enlarge<span class="sr-only">progress by bytes line graph</span></a>
             </div>
@@ -50,25 +50,25 @@
       <div class="card h-100">
         <ul class="nav nav-tabs" id="filesTabs" role="tablist">
           <li class="nav-item" role="presentation">
-            <button class="nav-link" id="files-chart-tab" data-toggle="tab" data-target="#files-chart" type="button" role="tab" aria-controls="files-chart" aria-selected="true">Chart</button>
+            <button class="nav-link active" id="files-chart-tab" data-toggle="tab" data-target="#files-chart" type="button" role="tab" aria-controls="files-chart" aria-selected="true">Chart</button>
           </li>
           <li class="nav-item" role="presentation">
             <button class="nav-link" id="files-numbers-tab" data-toggle="tab" data-target="#files-numbers" type="button" role="tab" aria-controls="files-numbers" aria-selected="false">Numbers</button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="files-trends-tab" data-toggle="tab" data-target="#files-trends" type="button" role="tab" aria-controls="files-trends" aria-selected="false">Trends</button>
+            <button class="nav-link" id="files-trends-tab" data-toggle="tab" data-target="#files-trends" type="button" role="tab" aria-controls="files-trends" aria-selected="false">Trends</button>
           </li>
         </ul>
         <div class="card-body">
           <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade" id="files-chart" role="tabpanel" aria-labelledby="files-chart-tab">
+            <div class="tab-pane fade show active" id="files-chart" role="tabpanel" aria-labelledby="files-chart-tab">
               <canvas id="filesChart"></canvas>
             </div>
             <div class="tab-pane fade" id="files-numbers" role="tabpanel" aria-labelledby="files-numbers-tab">
               <p>Progress by files</p>
               <table class="table table-sm"><tbody></tbody></table>
             </div>
-            <div class="tab-pane fade show active" id="files-trends" role="tabpanel" aria-labelledby="files-trends-tab">
+            <div class="tab-pane fade" id="files-trends" role="tabpanel" aria-labelledby="files-trends-tab">
               <canvas id="filesTrends"></canvas>
               <a href="#" data-toggle="modal" data-target="#filesModal">Click to enlarge<span class="sr-only">progress by files line graph</span></a>
             </div>
@@ -82,25 +82,25 @@
       <div class="card h-100">
         <ul class="nav nav-tabs" id="objectsTabs" role="tablist">
           <li class="nav-item" role="presentation">
-            <button class="nav-link" id="objects-chart-tab" data-toggle="tab" data-target="#objects-chart" type="button" role="tab" aria-controls="objects-chart" aria-selected="true">Chart</button>
+            <button class="nav-link active" id="objects-chart-tab" data-toggle="tab" data-target="#objects-chart" type="button" role="tab" aria-controls="objects-chart" aria-selected="true">Chart</button>
           </li>
           <li class="nav-item" role="presentation">
             <button class="nav-link" id="objects-numbers-tab" data-toggle="tab" data-target="#objects-numbers" type="button" role="tab" aria-controls="objects-numbers" aria-selected="false">Numbers</button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="objects-trends-tab" data-toggle="tab" data-target="#objects-trends" type="button" role="tab" aria-controls="objects-trends" aria-selected="false">Trends</button>
+            <button class="nav-link" id="objects-trends-tab" data-toggle="tab" data-target="#objects-trends" type="button" role="tab" aria-controls="objects-trends" aria-selected="false">Trends</button>
           </li>
         </ul>
         <div class="card-body">
           <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade" id="objects-chart" role="tabpanel" aria-labelledby="objects-chart-tab">
+            <div class="tab-pane fade show active" id="objects-chart" role="tabpanel" aria-labelledby="objects-chart-tab">
               <canvas id="objectsChart"></canvas>
             </div>
             <div class="tab-pane fade" id="objects-numbers" role="tabpanel" aria-labelledby="objects-numbers-tab">
               <p>Progress by objects</p>
               <table class="table table-sm"><tbody></tbody></table>
             </div>
-            <div class="tab-pane fade show active" id="objects-trends" role="tabpanel" aria-labelledby="objects-trends-tab">
+            <div class="tab-pane fade" id="objects-trends" role="tabpanel" aria-labelledby="objects-trends-tab">
               <canvas id="objectsTrends"></canvas>
               <a href="#" data-toggle="modal" data-target="#objectsModal">Click to enlarge<span class="sr-only">progress by objects line graph</span></a>
             </div>

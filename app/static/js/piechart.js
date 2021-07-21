@@ -10,7 +10,7 @@ $(document).ready(function () {
 
   // Chart.defaults.plugins.title.font.color = #000;
   Chart.defaults.plugins.title.font.size = 20;
-  Chart.defaults.plugins.title.font.weight = 700;
+  Chart.defaults.plugins.title.font.weight = 600;
   Chart.defaults.plugins.title.font.lineHeight = 1.5;
 
   // chart colors
@@ -207,41 +207,12 @@ $(document).ready(function () {
 
       // create arrays for trends graphs
       let dateArray = [];
-
-      // let bytesArray = [[],[],[],[],[],[],[],[],[]];
-
       let bytesRemaining = [];
       let filesRemaining = [];
       let objectsRemaining = [];
 
       for(i=1;i<data.length;i++){
         dateArray.push(data[i]["gsx$date"]["$t"]); // array of dates for x-axis
-
-        // let bytesArrayTrend = [
-        //   data[i]["gsx$bybytes"]["$t"],
-        //   data[i]["gsx$_cre1l"]["$t"],
-        //   data[i]["gsx$_chk2m"]["$t"],
-        //   data[i]["gsx$_ciyn3"]["$t"],
-        //   data[i]["gsx$_ckd7g"]["$t"],
-        //   data[i]["gsx$_clrrx"]["$t"],
-        //   data[i]["gsx$_cyevm"]["$t"],
-        //   data[i]["gsx$_cztg3"]["$t"],
-        //   data[i]["gsx$_d180g"]["$t"]
-        // ];
-
-        // for(j=0;j<bytesArrayTrend.length;j++){
-        //   bytesArray[j].push((bytesArrayTrend[j])/(10**9));
-        // }
-
-
-        // let filesRemaining = parseInt(data[i]["gsx$_d6ua4"]["$t"]) - (parseInt(data[i]["gsx$_di2tg"]["$t"]) + parseInt(data[i]["gsx$_djhdx"]["$t"]) + parseInt(data[i]["gsx$_dw4je"]["$t"]));
-        //
-        // filesRemainingArray.push(filesRemaining/(10**6));
-
-        function calcRemaining(array, total, success, verified, verified_failed, exponent){
-          let remaining = parseInt(total) - (parseInt(success) + parseInt(verified) + parseInt(verified_failed));
-          array.push(remaining/(10**exponent));
-        }
 
         calcRemaining(bytesRemaining, data[i]["gsx$_d2mkx"]["$t"], data[i]["gsx$_cyevm"]["$t"], data[i]["gsx$_cztg3"]["$t"], data[i]["gsx$_d180g"]["$t"], 12);
 
@@ -453,9 +424,9 @@ $(document).ready(function () {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   }
 
-  // create arrays for line graph
-  function createArray(arrayName){
-    let pendingArray = [];
-
+  // create array of total amount remaining
+  function calcRemaining(array, total, success, verified, verified_failed, exponent){
+    let remaining = parseInt(total) - (parseInt(success) + parseInt(verified) + parseInt(verified_failed));
+    array.push(remaining/(10**exponent));
   }
 });

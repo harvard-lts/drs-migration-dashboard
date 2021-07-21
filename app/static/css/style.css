@@ -520,6 +520,19 @@ div.container-fluid {
 	color: #1e1e1e;
 }
 
+
+/* card columns */
+.col-md-4 {
+  min-width: 425px;
+}
+.row {
+  justify-content: center;
+}
+.pb-1, .py-1 {
+  padding-bottom:30px;
+}
+
+
 /* modal windows */
 .modal-dialog {
   outline: 0;
