@@ -14,7 +14,7 @@ $(document).ready(function () {
   Chart.defaults.plugins.title.font.lineHeight = 1.5;
 
   // chart colors
-  let colors = ['#c0c0c0','#f8c21c','#a51c30','#eb001b','#414141','#0579b8','#3e6f7d','green','red'];
+  let colors = ['#c0c0c0','#f8c21c','#a51c30','#eb001b','#414141','#0579b8','#8BDA4C','#3E6F7D','red'];
   let lineColor = '#3e6f7d';
 
   // labels
@@ -35,53 +35,49 @@ $(document).ready(function () {
       $(".hl__time").html(time);
 
       let bytes_data = [
-        data[i]["gsx$bybytes"]["$t"],
-        data[i]["gsx$_cre1l"]["$t"],
-        data[i]["gsx$_chk2m"]["$t"],
-        data[i]["gsx$_ciyn3"]["$t"],
-        data[i]["gsx$_ckd7g"]["$t"],
-        data[i]["gsx$_clrrx"]["$t"],
-        data[i]["gsx$_cyevm"]["$t"],
-        data[i]["gsx$_cztg3"]["$t"],
-        data[i]["gsx$_d180g"]["$t"]
+        data[i]["gsx$bybytes"]["$t"], //pending
+        data[i]["gsx$_cre1l"]["$t"],  // in process
+        data[i]["gsx$_chk2m"]["$t"],  // failure
+        data[i]["gsx$_ciyn3"]["$t"],  // unrecoverable
+        data[i]["gsx$_ckd7g"]["$t"],  // sensitive
+        data[i]["gsx$_clrrx"]["$t"],  // on hold
+        data[i]["gsx$_cyevm"]["$t"],  // success
+        data[i]["gsx$_cztg3"]["$t"],  // verified
+        data[i]["gsx$_d180g"]["$t"]   // verfied failed
       ];
 
-      let bytes_total = data[i]["gsx$_d2mkx"]["$t"];
-      let bytes_percent_complete = data[i]["gsx$_cssly"]["$t"];
+      let bytes_total = data[i]["gsx$_d2mkx"]["$t"]; // total
+      let bytes_percent_complete = data[i]["gsx$_cssly"]["$t"]; // % complete
 
       let files_data = [
-        data[i]["gsx$byfiles"]["$t"],
-        data[i]["gsx$_cvlqs"]["$t"],
-        data[i]["gsx$_cx0b9"]["$t"],
-        data[i]["gsx$_d9ney"]["$t"],
-        data[i]["gsx$_db1zf"]["$t"],
-        data[i]["gsx$_dcgjs"]["$t"],
-        data[i]["gsx$_ddv49"]["$t"],
-        data[i]["gsx$_d415a"]["$t"],
-        data[i]["gsx$_d5fpr"]["$t"]
+        data[i]["gsx$byfiles"]["$t"], //pending
+        data[i]["gsx$_cvlqs"]["$t"],  // in process
+        data[i]["gsx$_cx0b9"]["$t"],  // failure
+        data[i]["gsx$_d9ney"]["$t"],  // unrecoverable
+        data[i]["gsx$_db1zf"]["$t"],  // sensitive
+        data[i]["gsx$_dcgjs"]["$t"],  // on hold
+        data[i]["gsx$_ddv49"]["$t"],  // success
+        data[i]["gsx$_d415a"]["$t"],  // verified
+        data[i]["gsx$_d5fpr"]["$t"]   // verfied failed
       ];
 
-      let files_total = data[i]["gsx$_d6ua4"]["$t"];
-      let files_percent_complete = data[i]["gsx$_d88ul"]["$t"];
+      let files_total = data[i]["gsx$_d6ua4"]["$t"]; // total
+      let files_percent_complete = data[i]["gsx$_d88ul"]["$t"]; // % complete
 
       let objects_data = [
-        data[i]["gsx$byobjects"]["$t"],
-        data[i]["gsx$_dmair"]["$t"],
-        data[i]["gsx$_dnp34"]["$t"],
-        data[i]["gsx$_dp3nl"]["$t"],
-        data[i]["gsx$_df9om"]["$t"],
-        data[i]["gsx$_dgo93"]["$t"],
-        data[i]["gsx$_di2tg"]["$t"],
-        data[i]["gsx$_djhdx"]["$t"],
-        data[i]["gsx$_dw4je"]["$t"]
+        data[i]["gsx$byobjects"]["$t"], //pending
+        data[i]["gsx$_dmair"]["$t"],    // in process
+        data[i]["gsx$_dnp34"]["$t"],    // failure
+        data[i]["gsx$_dp3nl"]["$t"],    // unrecoverable
+        data[i]["gsx$_df9om"]["$t"],    // sensitive
+        data[i]["gsx$_dgo93"]["$t"],    // on hold
+        data[i]["gsx$_di2tg"]["$t"],    // success
+        data[i]["gsx$_djhdx"]["$t"],    // verified
+        data[i]["gsx$_dw4je"]["$t"]     // verfied failed
       ];
 
-      let objects_total = data[i]["gsx$_dxj3v"]["$t"];
-      let objects_percent_complete = data[i]["gsx$_dyxo8"]["$t"];
-
-      console.log(bytes_data);
-      console.log(files_data);
-      console.log(objects_data);
+      let objects_total = data[i]["gsx$_dxj3v"]["$t"]; // total
+      let objects_percent_complete = data[i]["gsx$_dyxo8"]["$t"]; // % complete
 
       // bytes chart
       let bytesChartOptions = {
@@ -207,6 +203,226 @@ $(document).ready(function () {
       createTable("#bytes-numbers", bytes_data, bytes_total, bytes_percent_complete);
       createTable("#files-numbers", files_data, files_total, files_percent_complete);
       createTable("#objects-numbers", objects_data, objects_total, objects_percent_complete);
+
+
+      // create arrays for trends graphs
+      let dateArray = [];
+
+      // let bytesArray = [[],[],[],[],[],[],[],[],[]];
+
+      let bytesRemaining = [];
+      let filesRemaining = [];
+      let objectsRemaining = [];
+
+      for(i=1;i<data.length;i++){
+        dateArray.push(data[i]["gsx$date"]["$t"]); // array of dates for x-axis
+
+        // let bytesArrayTrend = [
+        //   data[i]["gsx$bybytes"]["$t"],
+        //   data[i]["gsx$_cre1l"]["$t"],
+        //   data[i]["gsx$_chk2m"]["$t"],
+        //   data[i]["gsx$_ciyn3"]["$t"],
+        //   data[i]["gsx$_ckd7g"]["$t"],
+        //   data[i]["gsx$_clrrx"]["$t"],
+        //   data[i]["gsx$_cyevm"]["$t"],
+        //   data[i]["gsx$_cztg3"]["$t"],
+        //   data[i]["gsx$_d180g"]["$t"]
+        // ];
+
+        // for(j=0;j<bytesArrayTrend.length;j++){
+        //   bytesArray[j].push((bytesArrayTrend[j])/(10**9));
+        // }
+
+
+        // let filesRemaining = parseInt(data[i]["gsx$_d6ua4"]["$t"]) - (parseInt(data[i]["gsx$_di2tg"]["$t"]) + parseInt(data[i]["gsx$_djhdx"]["$t"]) + parseInt(data[i]["gsx$_dw4je"]["$t"]));
+        //
+        // filesRemainingArray.push(filesRemaining/(10**6));
+
+        function calcRemaining(array, total, success, verified, verified_failed, exponent){
+          let remaining = parseInt(total) - (parseInt(success) + parseInt(verified) + parseInt(verified_failed));
+          array.push(remaining/(10**exponent));
+        }
+
+        calcRemaining(bytesRemaining, data[i]["gsx$_d2mkx"]["$t"], data[i]["gsx$_cyevm"]["$t"], data[i]["gsx$_cztg3"]["$t"], data[i]["gsx$_d180g"]["$t"], 12);
+
+        calcRemaining(filesRemaining, data[i]["gsx$_d6ua4"]["$t"], data[i]["gsx$_ddv49"]["$t"], data[i]["gsx$_d415a"]["$t"], data[i]["gsx$_d5fpr"]["$t"], 6);
+
+        calcRemaining(objectsRemaining, data[i]["gsx$_dxj3v"]["$t"], data[i]["gsx$_di2tg"]["$t"], data[i]["gsx$_djhdx"]["$t"], data[i]["gsx$_dw4je"]["$t"], 3);
+      }
+
+      // bytes trends
+      let bytesTrendsOptions = {
+        plugins: {
+          tooltip: {
+            mode: 'index',
+            intersect: false
+          },
+          title: {
+            display: true,
+            text: "Progress by bytes",
+            padding:{
+              top:10,
+              bottom:10
+            }
+          }
+        },
+        scales: {
+          x: {
+            title: {
+              display: false,
+              text: 'Date'
+            }
+          },
+          y: {
+            title: {
+              display: true,
+              text: 'TB remaining'
+            }
+          }
+        }
+      };
+      let bytesTrendsData = {
+        labels: dateArray,
+        datasets: [{
+            label: 'Total TB remaining',
+            data: bytesRemaining,
+            borderColor: colors[2],
+            backgroundColor: colors[2],
+            tension: 0.1
+        }]
+      };
+      let bytesTrends = document.getElementById("bytesTrends");
+      if (bytesTrends) {
+        new Chart(bytesTrends, {
+          type: 'line',
+          data: bytesTrendsData,
+          options: bytesTrendsOptions
+        });
+      }
+      let bytesTrendsModal = document.getElementById("bytesTrendsModal");
+      if (bytesTrendsModal) {
+        new Chart(bytesTrendsModal, {
+          type: 'line',
+          data: bytesTrendsData,
+          options: bytesTrendsOptions
+        });
+      }
+
+      // files trends
+      let filesTrendsOptions = {
+        plugins: {
+          tooltip: {
+            mode: 'index',
+            intersect: false
+          },
+          title: {
+            display: true,
+            text: "Progress by files",
+            padding:{
+              top:10,
+              bottom:10
+            }
+          }
+        },
+        scales: {
+          x: {
+            title: {
+              display: false,
+              text: 'Date'
+            }
+          },
+          y: {
+            title: {
+              display: true,
+              text: 'MB remaining'
+            }
+          }
+        }
+      };
+      let filesTrendsData = {
+        labels: dateArray,
+        datasets: [{
+            label: 'Total MB remaining',
+            data: filesRemaining,
+            borderColor: colors[2],
+            backgroundColor: colors[2],
+            tension: 0.1
+        }]
+      };
+      let filesTrends = document.getElementById("filesTrends");
+      if (filesTrends) {
+        new Chart(filesTrends, {
+          type: 'line',
+          data: filesTrendsData,
+          options: filesTrendsOptions
+        });
+      }
+      let filesTrendsModal = document.getElementById("filesTrendsModal");
+      if (filesTrendsModal) {
+        new Chart(filesTrendsModal, {
+          type: 'line',
+          data: filesTrendsData,
+          options: filesTrendsOptions
+        });
+      }
+
+      // objects trends
+      let objectsTrendsOptions = {
+        plugins: {
+          tooltip: {
+            mode: 'index',
+            intersect: false
+          },
+          title: {
+            display: true,
+            text: "Progress by objects",
+            padding:{
+              top:10,
+              bottom:10
+            }
+          }
+        },
+        scales: {
+          x: {
+            title: {
+              display: false,
+              text: 'Date'
+            }
+          },
+          y: {
+            title: {
+              display: true,
+              text: 'KB Remaining'
+            }
+          }
+        }
+      };
+      let objectsTrendsData = {
+        labels: dateArray,
+        datasets: [{
+            label: 'Total KB remaining',
+            data: objectsRemaining,
+            borderColor: colors[2],
+            backgroundColor: colors[2],
+            tension: 0.1
+        }]
+      };
+      let objectsTrends = document.getElementById("objectsTrends");
+      if (objectsTrends) {
+        new Chart(objectsTrends, {
+          type: 'line',
+          data: objectsTrendsData,
+          options: objectsTrendsOptions
+        });
+      }
+      let objectsTrendsModal = document.getElementById("objectsTrendsModal");
+      if (objectsTrendsModal) {
+        new Chart(objectsTrendsModal, {
+          type: 'line',
+          data: objectsTrendsData,
+          options: objectsTrendsOptions
+        });
+      }
     }
   };
 
@@ -235,5 +451,11 @@ $(document).ready(function () {
   // add commas to numbers in table view
   function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+
+  // create arrays for line graph
+  function createArray(arrayName){
+    let pendingArray = [];
+
   }
 });
