@@ -5,12 +5,12 @@ $(document).ready(function () {
   Chart.defaults.font.family = 'Trueno';
   Chart.defaults.font.size = 14;
   // Chart.defaults.font.style = 'normal';
-  // Chart.defaults.font.weight = 600;
+  Chart.defaults.font.weight = 300;
   Chart.defaults.font.lineHeight = 1.733;
 
   // Chart.defaults.plugins.title.font.color = #000;
   Chart.defaults.plugins.title.font.size = 20;
-  Chart.defaults.plugins.title.font.weight = 600;
+  Chart.defaults.plugins.title.font.weight = 700;
   Chart.defaults.plugins.title.font.lineHeight = 1.5;
 
   // chart colors

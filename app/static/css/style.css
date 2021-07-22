@@ -599,6 +599,7 @@ div.container-fluid {
 .modal-footer {
   padding: 20px 0;
   margin-bottom: -40px;
+  border-top: none;
 }
 .modal-footer > * {
   margin: 0;
@@ -612,6 +613,9 @@ div.container-fluid {
 /* definitions modal */
 dt {
   font-weight: 600;
+}
+dd {
+  padding-bottom: 10px;
 }
 
 /* buttons */
