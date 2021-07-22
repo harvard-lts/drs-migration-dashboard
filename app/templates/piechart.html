@@ -6,12 +6,11 @@
 <div class="container">
   <div class="row my-3">
     <div class="col">
-      <h1>DRS Migration Dashboard</h1>
-      <p>Welcome to the DRS Data Migration Status Dashboard. Statistics are updated hourly. For an explanation of each status, check the <a href="#" data-toggle="modal" data-target="#definitions">status definitions</a>. Also, refer to the <a href="#" data-toggle="modal" data-target="#diagram">status diagram</a> for a visual representation of the migration workflow.</p>
+      <!-- <h1>DRS Migration Dashboard</h1> -->
+      <p class="hl__time-stamp">Last update: <span class="hl__date">07/13/2021</span>, <span class="hl__time">1:03 PM</span></p>
+      <p>Statistics are updated daily. For an explanation of each status, check the <a href="#" data-toggle="modal" data-target="#definitions">status definitions</a>. Also, refer to the <a href="#" data-toggle="modal" data-target="#diagram">status diagram</a> for a visual representation of the migration workflow.</p>
     </div>
   </div>
-
-  <p class="hl__time-stamp">Last update: <span class="hl__date">07/13/2021</span>, <span class="hl__time">1:03 PM</span></p>
 
   <div class="row py-2">
     <!-- PROGRESS BY BYTES -->
@@ -38,8 +37,8 @@
               <table class="table table-sm"><tbody></tbody></table>
             </div>
             <div class="tab-pane fade" id="bytes-trends" role="tabpanel" aria-labelledby="bytes-trends-tab">
-              Insert line graph
               <canvas id="bytesTrends"></canvas>
+              <a href="#" data-toggle="modal" data-target="#bytesModal">Click to enlarge<span class="sr-only">progress by bytes line graph</span></a>
             </div>
           </div>
         </div>
@@ -50,8 +49,8 @@
     <div class="col-md-4 py-1">
       <div class="card h-100">
         <ul class="nav nav-tabs" id="filesTabs" role="tablist">
-          <li class="nav-item active" role="presentation">
-            <button class="nav-link" id="files-chart-tab" data-toggle="tab" data-target="#files-chart" type="button" role="tab" aria-controls="files-chart" aria-selected="true">Chart</button>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="files-chart-tab" data-toggle="tab" data-target="#files-chart" type="button" role="tab" aria-controls="files-chart" aria-selected="true">Chart</button>
           </li>
           <li class="nav-item" role="presentation">
             <button class="nav-link" id="files-numbers-tab" data-toggle="tab" data-target="#files-numbers" type="button" role="tab" aria-controls="files-numbers" aria-selected="false">Numbers</button>
@@ -70,8 +69,8 @@
               <table class="table table-sm"><tbody></tbody></table>
             </div>
             <div class="tab-pane fade" id="files-trends" role="tabpanel" aria-labelledby="files-trends-tab">
-              Insert line graph
               <canvas id="filesTrends"></canvas>
+              <a href="#" data-toggle="modal" data-target="#filesModal">Click to enlarge<span class="sr-only">progress by files line graph</span></a>
             </div>
           </div>
         </div>
@@ -102,8 +101,8 @@
               <table class="table table-sm"><tbody></tbody></table>
             </div>
             <div class="tab-pane fade" id="objects-trends" role="tabpanel" aria-labelledby="objects-trends-tab">
-              Insert line graph
               <canvas id="objectsTrends"></canvas>
+              <a href="#" data-toggle="modal" data-target="#objectsModal">Click to enlarge<span class="sr-only">progress by objects line graph</span></a>
             </div>
           </div>
         </div>
@@ -170,6 +169,66 @@
         </div>
         <div class="modal-body">
           <img class="hl__image " alt="diagram of migration statuses" src="{{ url_for('static', filename='images/status-diagram.png') }}"/>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: progress by bytes line graph -->
+  <div class="modal fade" id="bytesModal" tabindex="-1" role="dialog" aria-labelledby="bytesModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title sr-only" id="bytesModalLabel">Progress by bytes</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <canvas id="bytesTrendsModal"></canvas>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: progress by files line graph -->
+  <div class="modal fade" id="filesModal" tabindex="-1" role="dialog" aria-labelledby="filesModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title sr-only" id="filesModalLabel">Progress by files</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <canvas id="filesTrendsModal"></canvas>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: progress by objects line graph -->
+  <div class="modal fade" id="objectsModal" tabindex="-1" role="dialog" aria-labelledby="objectsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title sr-only" id="objectsModalLabel">Progress by files</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <canvas id="objectsTrendsModal"></canvas>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
