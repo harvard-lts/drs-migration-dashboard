@@ -700,3 +700,14 @@ td:last-child {
   font-weight: normal;
   line-height: 24px;
 }
+
+
+.hl__prediction p {
+  font-size: 15px;
+  font-weight: 300;
+  margin-bottom: 0;
+  text-align: left;
+}
+.hl__prediction p span {
+	white-space: nowrap;
+}

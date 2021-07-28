@@ -14,7 +14,7 @@ $(document).ready(function () {
   Chart.defaults.plugins.title.font.lineHeight = 1.5;
 
   // chart colors
-  let colors = ['#c0c0c0','#f8c21c','#a51c30','#eb001b','#414141','#0579b8','#8BDA4C','#3E6F7D','red'];
+  let colors = ['#c0c0c0','#f8c21c','#a51c30','#eb001b','#414141','#0579b8','#8DBA4B','#3E6F7D','red'];
   let lineColor = '#3e6f7d';
 
   // labels
@@ -394,6 +394,11 @@ $(document).ready(function () {
           options: objectsTrendsOptions
         });
       }
+
+      // prediction data
+      makePrediction(bytesRemaining, ".bytes-average", ".bytes-current", ".bytes-predict", 12);
+      makePrediction(filesRemaining, ".files-average", ".files-current", ".files-predict", 6);
+      makePrediction(objectsRemaining, ".objects-average", ".objects-current", ".objects-predict", 3);
     }
   };
 
@@ -428,5 +433,17 @@ $(document).ready(function () {
   function calcRemaining(array, total, success, verified, verified_failed, exponent){
     let remaining = parseInt(total) - (parseInt(success) + parseInt(verified) + parseInt(verified_failed));
     array.push(remaining/(10**exponent));
+  }
+
+  // prediction calculations
+  function makePrediction(array, averageClass, currentClass, predictClass, exponent){
+    let total =  array[0] - array[array.length - 1];
+    let averageMigrated = Math.floor(total/(array.length)*(10**exponent));
+    let totalRemaining = (array[array.length - 1])*(10**exponent);
+    let prediction = Math.floor(totalRemaining / averageMigrated);
+
+    $(averageClass).html(" " + numberWithCommas(averageMigrated) + " bytes");
+    $(currentClass).html(" " + numberWithCommas(totalRemaining) + " bytes");
+    $(predictClass).html(" " + prediction + " days");
   }
 });
