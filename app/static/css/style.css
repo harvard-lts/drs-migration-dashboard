@@ -675,9 +675,8 @@ dd {
   width:100%;
   margin-bottom:1rem;
   color:#414141;
-  font-family: "Trueno", sans-serif;
+  font-family: monospace;
   font-size: 15px;
-  font-weight: 300;
 }
 .tab-pane p {
   font-family: 'Trueno', Arial, Helvetica, sans-serif;

@@ -18,31 +18,36 @@
       <div class="card h-100">
         <ul class="nav nav-tabs" id="bytesTabs" role="tablist">
           <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="bytes-chart-tab" data-toggle="tab" data-target="#bytes-chart" type="button" role="tab" aria-controls="bytes-chart" aria-selected="true">Chart</button>
+            <button class="nav-link" id="bytes-chart-tab" data-toggle="tab" data-target="#bytes-chart" type="button" role="tab" aria-controls="bytes-chart" aria-selected="true">Chart</button>
           </li>
           <li class="nav-item" role="presentation">
             <button class="nav-link" id="bytes-numbers-tab" data-toggle="tab" data-target="#bytes-numbers" type="button" role="tab" aria-controls="bytes-numbers" aria-selected="false">Numbers</button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link" id="bytes-trends-tab" data-toggle="tab" data-target="#bytes-trends" type="button" role="tab" aria-controls="bytes-trends" aria-selected="false">Trends</button>
+            <button class="nav-link active" id="bytes-trends-tab" data-toggle="tab" data-target="#bytes-trends" type="button" role="tab" aria-controls="bytes-trends" aria-selected="false">Trends</button>
           </li>
         </ul>
         <div class="card-body">
           <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="bytes-chart" role="tabpanel" aria-labelledby="bytes-chart-tab">
+            <div class="tab-pane fade" id="bytes-chart" role="tabpanel" aria-labelledby="bytes-chart-tab">
               <canvas id="bytesChart"></canvas>
             </div>
             <div class="tab-pane fade" id="bytes-numbers" role="tabpanel" aria-labelledby="bytes-numbers-tab">
               <p>Progress by bytes</p>
               <table class="table table-sm"><tbody></tbody></table>
             </div>
-            <div class="tab-pane fade" id="bytes-trends" role="tabpanel" aria-labelledby="bytes-trends-tab">
+            <div class="tab-pane fade show active" id="bytes-trends" role="tabpanel" aria-labelledby="bytes-trends-tab">
               <canvas id="bytesTrends"></canvas>
               <a href="#" data-toggle="modal" data-target="#bytesModal">Click to enlarge<span class="sr-only">progress by bytes line graph</span></a>
               <div class="hl__prediction">
                 <p>Average bytes migrated per day: <span class="bytes-average">#</span></p>
                 <p>Total bytes remaining today:<span class="bytes-current">#</span></p>
                 <p>Predicted # of days to completion: <span class="bytes-predict">#</span><p>
+              </div>
+              <canvas id="bytesRegression"></canvas>
+              <div class="hl__regression">
+                <p>Linear regression line equation:<br>y = <span class="hl__slope">m</span>x + <span class="hl__yintercept">b</span></p>
+                <p>Projected completion of migration in <span class="hl__projection">#</span> days.
               </div>
             </div>
           </div>
@@ -76,11 +81,6 @@
             <div class="tab-pane fade" id="files-trends" role="tabpanel" aria-labelledby="files-trends-tab">
               <canvas id="filesTrends"></canvas>
               <a href="#" data-toggle="modal" data-target="#filesModal">Click to enlarge<span class="sr-only">progress by files line graph</span></a>
-              <div class="hl__prediction">
-                <p>Average bytes migrated per day: <span class="files-average">#</span></p>
-                <p>Total bytes remaining today:<span class="files-current">#</span></p>
-                <p>Predicted # of days to completion: <span class="files-predict">#</span><p>
-              </div>
             </div>
           </div>
         </div>
@@ -113,11 +113,6 @@
             <div class="tab-pane fade" id="objects-trends" role="tabpanel" aria-labelledby="objects-trends-tab">
               <canvas id="objectsTrends"></canvas>
               <a href="#" data-toggle="modal" data-target="#objectsModal">Click to enlarge<span class="sr-only">progress by objects line graph</span></a>
-              <div class="hl__prediction">
-                <p>Average bytes migrated per day: <span class="objects-average">#</span></p>
-                <p>Total bytes remaining today:<span class="objects-current">#</span></p>
-                <p>Predicted # of days to completion: <span class="objects-predict">#</span><p>
-              </div>
             </div>
           </div>
         </div>

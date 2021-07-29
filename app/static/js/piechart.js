@@ -43,7 +43,7 @@ $(document).ready(function () {
         data[i]["gsx$_clrrx"]["$t"],  // on hold
         data[i]["gsx$_cyevm"]["$t"],  // success
         data[i]["gsx$_cztg3"]["$t"],  // verified
-        data[i]["gsx$_d180g"]["$t"]   // verfied failed
+        data[i]["gsx$_d180g"]["$t"]   // verified failed
       ];
 
       let bytes_total = data[i]["gsx$_d2mkx"]["$t"]; // total
@@ -58,7 +58,7 @@ $(document).ready(function () {
         data[i]["gsx$_dcgjs"]["$t"],  // on hold
         data[i]["gsx$_ddv49"]["$t"],  // success
         data[i]["gsx$_d415a"]["$t"],  // verified
-        data[i]["gsx$_d5fpr"]["$t"]   // verfied failed
+        data[i]["gsx$_d5fpr"]["$t"]   // verified failed
       ];
 
       let files_total = data[i]["gsx$_d6ua4"]["$t"]; // total
@@ -73,7 +73,7 @@ $(document).ready(function () {
         data[i]["gsx$_dgo93"]["$t"],    // on hold
         data[i]["gsx$_di2tg"]["$t"],    // success
         data[i]["gsx$_djhdx"]["$t"],    // verified
-        data[i]["gsx$_dw4je"]["$t"]     // verfied failed
+        data[i]["gsx$_dw4je"]["$t"]     // verified failed
       ];
 
       let objects_total = data[i]["gsx$_dxj3v"]["$t"]; // total
@@ -101,12 +101,12 @@ $(document).ready(function () {
         }
       };
       let bytesChartData = {
-        labels: labels,
+        labels: labels.slice(0,7),
         datasets: [
           {
-            backgroundColor: colors.slice(0,9),
+            backgroundColor: colors.slice(0,7),
             borderWidth: 1,
-            data: bytes_data,
+            data: bytes_data.slice(0,7),
           }
         ]
       };
@@ -141,12 +141,12 @@ $(document).ready(function () {
         }
       };
       let filesChartData = {
-        labels: labels,
+        labels: labels.slice(0,7),
         datasets: [
           {
-            backgroundColor: colors.slice(0,9),
+            backgroundColor: colors.slice(0,7),
             borderWidth: 1,
-            data: files_data
+            data: files_data.slice(0,7)
           }
         ]
       };
@@ -181,12 +181,12 @@ $(document).ready(function () {
         }
       };
       let objectsChartData = {
-        labels: labels,
+        labels: labels.slice(0,7),
         datasets: [
           {
-            backgroundColor: colors.slice(0,9),
+            backgroundColor: colors.slice(0,7),
             borderWidth: 1,
-            data: objects_data
+            data: objects_data.slice(0,7)
           }
         ]
       };
@@ -214,11 +214,11 @@ $(document).ready(function () {
       for(i=1;i<data.length;i++){
         dateArray.push(data[i]["gsx$date"]["$t"]); // array of dates for x-axis
 
-        calcRemaining(bytesRemaining, data[i]["gsx$_d2mkx"]["$t"], data[i]["gsx$_cyevm"]["$t"], data[i]["gsx$_cztg3"]["$t"], data[i]["gsx$_d180g"]["$t"], 12);
+        calcRemaining(bytesRemaining, data[i]["gsx$_d2mkx"]["$t"], data[i]["gsx$_cyevm"]["$t"], 12);
 
-        calcRemaining(filesRemaining, data[i]["gsx$_d6ua4"]["$t"], data[i]["gsx$_ddv49"]["$t"], data[i]["gsx$_d415a"]["$t"], data[i]["gsx$_d5fpr"]["$t"], 6);
+        calcRemaining(filesRemaining, data[i]["gsx$_d6ua4"]["$t"], data[i]["gsx$_ddv49"]["$t"], 6);
 
-        calcRemaining(objectsRemaining, data[i]["gsx$_dxj3v"]["$t"], data[i]["gsx$_di2tg"]["$t"], data[i]["gsx$_djhdx"]["$t"], data[i]["gsx$_dw4je"]["$t"], 3);
+        calcRemaining(objectsRemaining, data[i]["gsx$_dxj3v"]["$t"], data[i]["gsx$_di2tg"]["$t"], 3);
       }
 
       // bytes trends
@@ -399,6 +399,81 @@ $(document).ready(function () {
       makePrediction(bytesRemaining, ".bytes-average", ".bytes-current", ".bytes-predict", 12);
       makePrediction(filesRemaining, ".files-average", ".files-current", ".files-predict", 6);
       makePrediction(objectsRemaining, ".objects-average", ".objects-current", ".objects-predict", 3);
+
+      // bytes regression
+      let bytesScatterArray = [];
+      for(i=0;i<data.length-1;i++){
+        bytesScatterArray.push({x: i, y: bytesRemaining[i]});
+      }
+      console.log(bytesScatterArray);
+
+
+      let m = -3034750908369/(10**12);
+      let b = 456388707979711/(10**12);
+      let yval = m*i + b;
+      let bytesRegressionArray = [
+        {x: 0,y: b},
+        {x: data.length - 2,y: m*(data.length - 2) + b}
+      ];
+
+      $(".hl__slope").html(m.toFixed(2));
+      $(".hl__yintercept").html(b.toFixed(2));
+      $(".hl__projection").html((-b/m).toFixed(2));
+
+      let bytesRegressionOptions = {
+        plugins: {
+          tooltip: {
+            mode: 'index',
+            intersect: false
+          },
+          title: {
+            display: true,
+            text: "Progress by bytes",
+            padding:{
+              top:10,
+              bottom:10
+            }
+          }
+        },
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: 'Days since started collecting data'
+            }
+          },
+          y: {
+            title: {
+              display: true,
+              text: 'TB remaining'
+            }
+          }
+        }
+      };
+      let bytesRegressionData = {
+        datasets: [{
+            label: 'Total TB remaining',
+            data: bytesScatterArray,
+            borderColor: colors[2],
+            backgroundColor: colors[2],
+            tension: 0.1
+        },{
+            label: 'Linear regression line',
+            data: bytesRegressionArray,
+            borderColor: colors[2],
+            backgroundColor: colors[2],
+            tension: 0.1,
+            type: 'line'
+        }]
+      };
+      let bytesRegression = document.getElementById("bytesRegression");
+      if (bytesRegression) {
+        new Chart(bytesRegression, {
+          type: 'scatter',
+          data: bytesRegressionData,
+          options: bytesRegressionOptions
+        });
+      }
     }
   };
 
@@ -430,8 +505,8 @@ $(document).ready(function () {
   }
 
   // create array of total amount remaining
-  function calcRemaining(array, total, success, verified, verified_failed, exponent){
-    let remaining = parseInt(total) - (parseInt(success) + parseInt(verified) + parseInt(verified_failed));
+  function calcRemaining(array, total, success, exponent){
+    let remaining = parseInt(total) - parseInt(success);
     array.push(remaining/(10**exponent));
   }
 
