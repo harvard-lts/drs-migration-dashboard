@@ -693,20 +693,27 @@ th {
 td:last-child {
   text-align: right;
 }
+#objects-failed td {
+  text-align: left;
+}
 
 .card-body a {
-  font-size: 15px;
+  font-size: 12px;
   font-weight: normal;
   line-height: 24px;
 }
 
-
-.hl__prediction p {
-  font-size: 15px;
-  font-weight: 300;
-  margin-bottom: 0;
-  text-align: left;
+#bytesRegression {
+  margin-top: 40px;
 }
-.hl__prediction p span {
-	white-space: nowrap;
+.hl__prediction {
+  padding-top: 20px;
+}
+.hl__prediction table {
+	font-family: 'Trueno', Arial, Helvetica, sans-serif;
+  font-size: 14px;
+	font-weight: 300;
+}
+.hl__equation {
+  min-width: 190px;
 }

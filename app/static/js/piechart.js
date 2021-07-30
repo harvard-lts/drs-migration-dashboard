@@ -199,6 +199,7 @@ $(document).ready(function () {
         });
       }
 
+
       // table views
       createTable("#bytes-numbers", bytes_data, bytes_total, bytes_percent_complete);
       createTable("#files-numbers", files_data, files_total, files_percent_complete);
@@ -395,19 +396,23 @@ $(document).ready(function () {
         });
       }
 
-      // prediction data
-      makePrediction(bytesRemaining, ".bytes-average", ".bytes-current", ".bytes-predict", 12);
-      makePrediction(filesRemaining, ".files-average", ".files-current", ".files-predict", 6);
-      makePrediction(objectsRemaining, ".objects-average", ".objects-current", ".objects-predict", 3);
+
+      // list of object ids for verified_failed
+      let objFailed = [482556371, 482559255, 482554466, 482559263, 482559259, 482556387, 482559267]
+      for(i=0;i<objFailed.length;i++){
+        $("#objects-failed table tbody").append(
+          '<tr><td>'+objFailed[i]+'</td></tr>'
+        );
+      }
+
 
       // bytes regression
       let bytesScatterArray = [];
       for(i=0;i<data.length-1;i++){
         bytesScatterArray.push({x: i, y: bytesRemaining[i]});
       }
-      console.log(bytesScatterArray);
 
-
+      // calculate line regression line
       let m = -3034750908369/(10**12);
       let b = 456388707979711/(10**12);
       let yval = m*i + b;
@@ -416,19 +421,14 @@ $(document).ready(function () {
         {x: data.length - 2,y: m*(data.length - 2) + b}
       ];
 
-      $(".hl__slope").html(m.toFixed(2));
-      $(".hl__yintercept").html(b.toFixed(2));
-      $(".hl__projection").html((-b/m).toFixed(2));
+      $(".hl__equation").html("y = " + m.toFixed(2) + "x + " + b.toFixed(2))
+      $(".hl__projection").html((-b/m).toFixed(2) + " days");
 
       let bytesRegressionOptions = {
         plugins: {
-          tooltip: {
-            mode: 'index',
-            intersect: false
-          },
           title: {
             display: true,
-            text: "Progress by bytes",
+            text: "Best fitting regression line",
             padding:{
               top:10,
               bottom:10
@@ -452,16 +452,16 @@ $(document).ready(function () {
       };
       let bytesRegressionData = {
         datasets: [{
-            label: 'Total TB remaining',
+            label: 'Scatter plot',
             data: bytesScatterArray,
             borderColor: colors[2],
             backgroundColor: colors[2],
-            tension: 0.1
+            type: 'scatter'
         },{
             label: 'Linear regression line',
             data: bytesRegressionArray,
-            borderColor: colors[2],
-            backgroundColor: colors[2],
+            borderColor: colors[0],
+            backgroundColor: colors[0],
             tension: 0.1,
             type: 'line'
         }]
@@ -491,11 +491,11 @@ $(document).ready(function () {
     let dataTable = $el.find("tbody");
     for(i=0;i<labels.length;i++){
       $(dataTable).append(
-        '<tr><td>'+labels[i]+'</td><td>'+numberWithCommas(data[i])+'</dt></tr>'
+        '<tr><td>'+labels[i]+'</td><td>'+numberWithCommas(data[i])+'</td></tr>'
       );
     }
     $(dataTable).append(
-      '<tr><td>Total</td><td>'+numberWithCommas(dataTotal)+'</dt></tr><tr><td>% complete</td><td>'+dataComplete+'</dt></tr>'
+      '<tr><td>Total</td><td>'+numberWithCommas(dataTotal)+'</td></tr><tr><td>% complete</td><td>'+dataComplete+'</td></tr>'
     );
   }
 
@@ -508,17 +508,5 @@ $(document).ready(function () {
   function calcRemaining(array, total, success, exponent){
     let remaining = parseInt(total) - parseInt(success);
     array.push(remaining/(10**exponent));
-  }
-
-  // prediction calculations
-  function makePrediction(array, averageClass, currentClass, predictClass, exponent){
-    let total =  array[0] - array[array.length - 1];
-    let averageMigrated = Math.floor(total/(array.length)*(10**exponent));
-    let totalRemaining = (array[array.length - 1])*(10**exponent);
-    let prediction = Math.floor(totalRemaining / averageMigrated);
-
-    $(averageClass).html(" " + numberWithCommas(averageMigrated) + " bytes");
-    $(currentClass).html(" " + numberWithCommas(totalRemaining) + " bytes");
-    $(predictClass).html(" " + prediction + " days");
   }
 });

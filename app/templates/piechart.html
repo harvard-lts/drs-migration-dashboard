@@ -6,7 +6,6 @@
 <div class="container">
   <div class="row my-3">
     <div class="col">
-      <!-- <h1>DRS Migration Dashboard</h1> -->
       <p class="hl__time-stamp">Last update: <span class="hl__date">07/13/2021</span>, <span class="hl__time">1:03 PM</span></p>
       <p>Statistics are updated daily. For an explanation of each status, check the <a href="#" data-toggle="modal" data-target="#definitions">status definitions</a>. Also, refer to the <a href="#" data-toggle="modal" data-target="#diagram">status diagram</a> for a visual representation of the migration workflow.</p>
     </div>
@@ -39,15 +38,20 @@
             <div class="tab-pane fade show active" id="bytes-trends" role="tabpanel" aria-labelledby="bytes-trends-tab">
               <canvas id="bytesTrends"></canvas>
               <a href="#" data-toggle="modal" data-target="#bytesModal">Click to enlarge<span class="sr-only">progress by bytes line graph</span></a>
-              <div class="hl__prediction">
-                <p>Average bytes migrated per day: <span class="bytes-average">#</span></p>
-                <p>Total bytes remaining today:<span class="bytes-current">#</span></p>
-                <p>Predicted # of days to completion: <span class="bytes-predict">#</span><p>
-              </div>
               <canvas id="bytesRegression"></canvas>
-              <div class="hl__regression">
-                <p>Linear regression line equation:<br>y = <span class="hl__slope">m</span>x + <span class="hl__yintercept">b</span></p>
-                <p>Projected completion of migration in <span class="hl__projection">#</span> days.
+              <div class="hl__prediction">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td>Regression equation</td>
+                      <td class="hl__equation">>y = mx + b</td>
+                    </tr>
+                    <tr>
+                      <td>Projected completion</td>
+                      <td class="hl__projection">># days</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -92,7 +96,7 @@
       <div class="card h-100">
         <ul class="nav nav-tabs" id="objectsTabs" role="tablist">
           <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="objects-chart-tab" data-toggle="tab" data-target="#objects-chart" type="button" role="tab" aria-controls="objects-chart" aria-selected="true">Chart</button>
+            <button class="nav-link" id="objects-chart-tab" data-toggle="tab" data-target="#objects-chart" type="button" role="tab" aria-controls="objects-chart" aria-selected="true">Chart</button>
           </li>
           <li class="nav-item" role="presentation">
             <button class="nav-link" id="objects-numbers-tab" data-toggle="tab" data-target="#objects-numbers" type="button" role="tab" aria-controls="objects-numbers" aria-selected="false">Numbers</button>
@@ -100,10 +104,13 @@
           <li class="nav-item" role="presentation">
             <button class="nav-link" id="objects-trends-tab" data-toggle="tab" data-target="#objects-trends" type="button" role="tab" aria-controls="objects-trends" aria-selected="false">Trends</button>
           </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="objects-failed-tab" data-toggle="tab" data-target="#objects-failed" type="button" role="tab" aria-controls="objects-failed" aria-selected="false">Failed IDs</button>
+          </li>
         </ul>
         <div class="card-body">
           <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="objects-chart" role="tabpanel" aria-labelledby="objects-chart-tab">
+            <div class="tab-pane fade" id="objects-chart" role="tabpanel" aria-labelledby="objects-chart-tab">
               <canvas id="objectsChart"></canvas>
             </div>
             <div class="tab-pane fade" id="objects-numbers" role="tabpanel" aria-labelledby="objects-numbers-tab">
@@ -114,11 +121,17 @@
               <canvas id="objectsTrends"></canvas>
               <a href="#" data-toggle="modal" data-target="#objectsModal">Click to enlarge<span class="sr-only">progress by objects line graph</span></a>
             </div>
+            <div class="tab-pane fade show active" id="objects-failed" role="tabpanel" aria-labelledby="objects-failed-tab">
+              <p>Verified failed object IDs</p>
+              <table class="table table-sm"><tbody></tbody></table>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+  <canvas id="bytesRegressionModal"></canvas>
 
   <!-- Modal: status definitions -->
   <div class="modal fade" id="definitions" tabindex="-1" role="dialog" aria-labelledby="definitionsLabel" aria-hidden="true">
