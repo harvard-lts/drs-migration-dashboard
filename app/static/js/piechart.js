@@ -18,7 +18,7 @@ $(document).ready(function () {
   let lineColor = '#3e6f7d';
 
   // labels
-  let labels = ['Pending', 'In process', 'Failure', 'Unrecoverable', 'Sensitive', 'On hold', 'Success', 'Verified', 'Verified failed'];
+  let labels = ['Pending', 'In process', 'Failure', 'Unrecoverable', 'Sensitive', 'On hold', 'Success', 'Verified', 'Verify failed'];
 
   // google spreadsheet request
   let xmlhttp = new XMLHttpRequest();
@@ -43,7 +43,7 @@ $(document).ready(function () {
         data[i]["gsx$_clrrx"]["$t"],  // on hold
         data[i]["gsx$_cyevm"]["$t"],  // success
         data[i]["gsx$_cztg3"]["$t"],  // verified
-        data[i]["gsx$_d180g"]["$t"]   // verified failed
+        data[i]["gsx$_d180g"]["$t"]   // verify failed
       ];
 
       let bytes_total = data[i]["gsx$_d2mkx"]["$t"]; // total
@@ -58,7 +58,7 @@ $(document).ready(function () {
         data[i]["gsx$_dcgjs"]["$t"],  // on hold
         data[i]["gsx$_ddv49"]["$t"],  // success
         data[i]["gsx$_d415a"]["$t"],  // verified
-        data[i]["gsx$_d5fpr"]["$t"]   // verified failed
+        data[i]["gsx$_d5fpr"]["$t"]   // verify failed
       ];
 
       let files_total = data[i]["gsx$_d6ua4"]["$t"]; // total
@@ -73,7 +73,7 @@ $(document).ready(function () {
         data[i]["gsx$_dgo93"]["$t"],    // on hold
         data[i]["gsx$_di2tg"]["$t"],    // success
         data[i]["gsx$_djhdx"]["$t"],    // verified
-        data[i]["gsx$_dw4je"]["$t"]     // verified failed
+        data[i]["gsx$_dw4je"]["$t"]     // verify failed
       ];
 
       let objects_total = data[i]["gsx$_dxj3v"]["$t"]; // total
@@ -199,19 +199,16 @@ $(document).ready(function () {
         });
       }
 
-
       // table views
       createTable("#bytes-numbers", bytes_data, bytes_total, bytes_percent_complete);
       createTable("#files-numbers", files_data, files_total, files_percent_complete);
       createTable("#objects-numbers", objects_data, objects_total, objects_percent_complete);
-
 
       // create arrays for trends graphs
       let dateArray = [];
       let bytesRemaining = [];
       let filesRemaining = [];
       let objectsRemaining = [];
-
       for(i=1;i<data.length;i++){
         dateArray.push(data[i]["gsx$date"]["$t"]); // array of dates for x-axis
 
@@ -397,7 +394,7 @@ $(document).ready(function () {
       }
 
 
-      // list of object ids for verified_failed
+      // list of object ids for verify_failed
       let objFailed = [482556371, 482559255, 482554466, 482559263, 482559259, 482556387, 482559267]
       for(i=0;i<objFailed.length;i++){
         $("#objects-failed table tbody").append(
@@ -405,17 +402,41 @@ $(document).ready(function () {
         );
       }
 
-
       // bytes regression
-      let bytesScatterArray = [];
-      for(i=0;i<data.length-1;i++){
-        bytesScatterArray.push({x: i, y: bytesRemaining[i]});
+      let bytesScatterArray = []; // x and y values to plot
+      let lr = {}; // object for regression stats
+      linearRegression(bytesRemaining, bytesScatterArray);
+
+      // calculate regression
+      function linearRegression(y, scatterPlot){
+        // var lr = {}; defined globally
+        var n = y.length;
+        var sum_x = 0;
+        var sum_y = 0;
+        var sum_xy = 0;
+        var sum_xx = 0;
+        var sum_yy = 0;
+
+        for (var i = 0; i < y.length; i++) {
+            sum_x += i;
+            sum_y += y[i];
+            sum_xy += (i*y[i]);
+            sum_xx += (i*i);
+            sum_yy += (y[i]*y[i]);
+
+            scatterPlot.push({x: i, y: y[i]});
+        }
+
+        lr['slope'] = (n * sum_xy - sum_x * sum_y) / (n*sum_xx - sum_x * sum_x);
+        lr['intercept'] = (sum_y - lr.slope * sum_x)/n;
+        lr['r2'] = Math.pow((n*sum_xy - sum_x*sum_y)/Math.sqrt((n*sum_xx-sum_x*sum_x)*(n*sum_yy-sum_y*sum_y)),2);
+
+        console.log(lr);
       }
 
-      // calculate line regression line
-      let m = -3291326380696/(10**12);
-      let b = 459086001401068/(10**12);
-      let yval = m*i + b;
+      // equation: y = mx * b
+      let m = lr['slope'];
+      let b = lr['intercept'];
       let bytesRegressionArray = [
         {x: 0,y: b},
         {x: data.length - 2,y: m*(data.length - 2) + b}

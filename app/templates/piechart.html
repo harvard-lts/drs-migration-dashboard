@@ -17,25 +17,25 @@
       <div class="card h-100">
         <ul class="nav nav-tabs" id="bytesTabs" role="tablist">
           <li class="nav-item" role="presentation">
-            <button class="nav-link" id="bytes-chart-tab" data-toggle="tab" data-target="#bytes-chart" type="button" role="tab" aria-controls="bytes-chart" aria-selected="true">Chart</button>
+            <button class="nav-link active" id="bytes-chart-tab" data-toggle="tab" data-target="#bytes-chart" type="button" role="tab" aria-controls="bytes-chart" aria-selected="true">Chart</button>
           </li>
           <li class="nav-item" role="presentation">
             <button class="nav-link" id="bytes-numbers-tab" data-toggle="tab" data-target="#bytes-numbers" type="button" role="tab" aria-controls="bytes-numbers" aria-selected="false">Numbers</button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="bytes-trends-tab" data-toggle="tab" data-target="#bytes-trends" type="button" role="tab" aria-controls="bytes-trends" aria-selected="false">Trends</button>
+            <button class="nav-link" id="bytes-trends-tab" data-toggle="tab" data-target="#bytes-trends" type="button" role="tab" aria-controls="bytes-trends" aria-selected="false">Trends</button>
           </li>
         </ul>
         <div class="card-body">
           <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade" id="bytes-chart" role="tabpanel" aria-labelledby="bytes-chart-tab">
+            <div class="tab-pane fade show active" id="bytes-chart" role="tabpanel" aria-labelledby="bytes-chart-tab">
               <canvas id="bytesChart"></canvas>
             </div>
             <div class="tab-pane fade" id="bytes-numbers" role="tabpanel" aria-labelledby="bytes-numbers-tab">
               <p>Progress by bytes</p>
               <table class="table table-sm"><tbody></tbody></table>
             </div>
-            <div class="tab-pane fade show active" id="bytes-trends" role="tabpanel" aria-labelledby="bytes-trends-tab">
+            <div class="tab-pane fade" id="bytes-trends" role="tabpanel" aria-labelledby="bytes-trends-tab">
               <canvas id="bytesTrends"></canvas>
               <a href="#" data-toggle="modal" data-target="#bytesModal">Click to enlarge<span class="sr-only">progress by bytes line graph</span></a>
               <canvas id="bytesRegression"></canvas>
@@ -105,7 +105,7 @@
             <button class="nav-link" id="objects-trends-tab" data-toggle="tab" data-target="#objects-trends" type="button" role="tab" aria-controls="objects-trends" aria-selected="false">Trends</button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link" id="objects-failed-tab" data-toggle="tab" data-target="#objects-failed" type="button" role="tab" aria-controls="objects-failed" aria-selected="false">Verified Failed IDs</button>
+            <button class="nav-link" id="objects-failed-tab" data-toggle="tab" data-target="#objects-failed" type="button" role="tab" aria-controls="objects-failed" aria-selected="false">Verify failed</button>
           </li>
         </ul>
         <div class="card-body">
@@ -122,7 +122,7 @@
               <a href="#" data-toggle="modal" data-target="#objectsModal">Click to enlarge<span class="sr-only">progress by objects line graph</span></a>
             </div>
             <div class="tab-pane fade" id="objects-failed" role="tabpanel" aria-labelledby="objects-failed-tab">
-              <p>Verified failed object IDs</p>
+              <p>Verify failed object IDs</p>
               <table class="table table-sm"><tbody></tbody></table>
             </div>
           </div>
@@ -131,7 +131,6 @@
     </div>
   </div>
 
-  <canvas id="bytesRegressionModal"></canvas>
 
   <!-- Modal: status definitions -->
   <div class="modal fade" id="definitions" tabindex="-1" role="dialog" aria-labelledby="definitionsLabel" aria-hidden="true">
@@ -169,7 +168,7 @@
             <dt class="col-sm-3 text-truncate">Verified</dt>
             <dd class="col-sm-9">Files that have been successfully migrated and verified as correct</dd>
 
-            <dt class="col-sm-3 text-truncate">Verified failed</dt>
+            <dt class="col-sm-3 text-truncate">Verify failed</dt>
             <dd class="col-sm-9">Files that have been successfully migrated but have failed verification</dd>
           </dl>
         </div>
