@@ -146,6 +146,7 @@ $(document).ready(function () {
         datasets: [
           {
             backgroundColor: colors.slice(0,7),
+            hoverBackgroundColor: colors.slice(0,7),
             borderWidth: 1,
             data: files_data.slice(0,7)
           }
@@ -186,6 +187,7 @@ $(document).ready(function () {
         datasets: [
           {
             backgroundColor: colors.slice(0,7),
+            hoverBackgroundColor: colors.slice(0,7),
             borderWidth: 1,
             data: objects_data.slice(0,7)
           }
