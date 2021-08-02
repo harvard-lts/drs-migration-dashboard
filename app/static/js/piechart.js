@@ -413,8 +413,8 @@ $(document).ready(function () {
       }
 
       // calculate line regression line
-      let m = -3034750908369/(10**12);
-      let b = 456388707979711/(10**12);
+      let m = -3291326380696/(10**12);
+      let b = 459086001401068/(10**12);
       let yval = m*i + b;
       let bytesRegressionArray = [
         {x: 0,y: b},

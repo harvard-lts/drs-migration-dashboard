@@ -96,7 +96,7 @@
       <div class="card h-100">
         <ul class="nav nav-tabs" id="objectsTabs" role="tablist">
           <li class="nav-item" role="presentation">
-            <button class="nav-link" id="objects-chart-tab" data-toggle="tab" data-target="#objects-chart" type="button" role="tab" aria-controls="objects-chart" aria-selected="true">Chart</button>
+            <button class="nav-link active" id="objects-chart-tab" data-toggle="tab" data-target="#objects-chart" type="button" role="tab" aria-controls="objects-chart" aria-selected="true">Chart</button>
           </li>
           <li class="nav-item" role="presentation">
             <button class="nav-link" id="objects-numbers-tab" data-toggle="tab" data-target="#objects-numbers" type="button" role="tab" aria-controls="objects-numbers" aria-selected="false">Numbers</button>
@@ -105,12 +105,12 @@
             <button class="nav-link" id="objects-trends-tab" data-toggle="tab" data-target="#objects-trends" type="button" role="tab" aria-controls="objects-trends" aria-selected="false">Trends</button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="objects-failed-tab" data-toggle="tab" data-target="#objects-failed" type="button" role="tab" aria-controls="objects-failed" aria-selected="false">Failed IDs</button>
+            <button class="nav-link" id="objects-failed-tab" data-toggle="tab" data-target="#objects-failed" type="button" role="tab" aria-controls="objects-failed" aria-selected="false">Verified Failed IDs</button>
           </li>
         </ul>
         <div class="card-body">
           <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade" id="objects-chart" role="tabpanel" aria-labelledby="objects-chart-tab">
+            <div class="tab-pane fade show active" id="objects-chart" role="tabpanel" aria-labelledby="objects-chart-tab">
               <canvas id="objectsChart"></canvas>
             </div>
             <div class="tab-pane fade" id="objects-numbers" role="tabpanel" aria-labelledby="objects-numbers-tab">
@@ -121,7 +121,7 @@
               <canvas id="objectsTrends"></canvas>
               <a href="#" data-toggle="modal" data-target="#objectsModal">Click to enlarge<span class="sr-only">progress by objects line graph</span></a>
             </div>
-            <div class="tab-pane fade show active" id="objects-failed" role="tabpanel" aria-labelledby="objects-failed-tab">
+            <div class="tab-pane fade" id="objects-failed" role="tabpanel" aria-labelledby="objects-failed-tab">
               <p>Verified failed object IDs</p>
               <table class="table table-sm"><tbody></tbody></table>
             </div>
