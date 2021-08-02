@@ -105,6 +105,7 @@ $(document).ready(function () {
         datasets: [
           {
             backgroundColor: colors.slice(0,7),
+            hoverBackgroundColor: colors.slice(0,7),
             borderWidth: 1,
             data: bytes_data.slice(0,7),
           }
@@ -403,76 +404,6 @@ $(document).ready(function () {
         $("#objects-failed table tbody").append(
           '<tr><td>'+objFailed[i]+'</td></tr>'
         );
-      }
-
-
-      // bytes regression
-      let bytesScatterArray = [];
-      for(i=0;i<data.length-1;i++){
-        bytesScatterArray.push({x: i, y: bytesRemaining[i]});
-      }
-
-      // calculate line regression line
-      let m = -3034750908369/(10**12);
-      let b = 456388707979711/(10**12);
-      let yval = m*i + b;
-      let bytesRegressionArray = [
-        {x: 0,y: b},
-        {x: data.length - 2,y: m*(data.length - 2) + b}
-      ];
-
-      $(".hl__equation").html("y = " + m.toFixed(2) + "x + " + b.toFixed(2))
-      $(".hl__projection").html((-b/m).toFixed(2) + " days");
-
-      let bytesRegressionOptions = {
-        plugins: {
-          title: {
-            display: true,
-            text: "Best fitting regression line",
-            padding:{
-              top:10,
-              bottom:10
-            }
-          }
-        },
-        scales: {
-          x: {
-            title: {
-              display: true,
-              text: 'Days since started collecting data'
-            }
-          },
-          y: {
-            title: {
-              display: true,
-              text: 'TB remaining'
-            }
-          }
-        }
-      };
-      let bytesRegressionData = {
-        datasets: [{
-            label: 'Scatter plot',
-            data: bytesScatterArray,
-            borderColor: colors[2],
-            backgroundColor: colors[2],
-            type: 'scatter'
-        },{
-            label: 'Linear regression line',
-            data: bytesRegressionArray,
-            borderColor: colors[0],
-            backgroundColor: colors[0],
-            tension: 0.1,
-            type: 'line'
-        }]
-      };
-      let bytesRegression = document.getElementById("bytesRegression");
-      if (bytesRegression) {
-        new Chart(bytesRegression, {
-          type: 'scatter',
-          data: bytesRegressionData,
-          options: bytesRegressionOptions
-        });
       }
     }
   };
