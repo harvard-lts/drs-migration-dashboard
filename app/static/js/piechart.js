@@ -14,11 +14,11 @@ $(document).ready(function () {
   Chart.defaults.plugins.title.font.lineHeight = 1.5;
 
   // chart colors
-  let colors = ['#c0c0c0','#f8c21c','#a51c30','#eb001b','#414141','#0579b8','#8DBA4B','#3E6F7D','red'];
+  let colors = ['#c0c0c0','#f8c21c','#a51c30','#eb001b','#414141','#0579b8','#3E6F7D','#8DBA4B','red'];
   let lineColor = '#3e6f7d';
 
   // labels
-  let labels = ['Pending', 'In process', 'Failure', 'Unrecoverable', 'Sensitive', 'On hold', 'Success', 'Verified', 'Verify failed'];
+  let labels = ['Pending', 'In process', 'Failure', 'Unrecoverable', 'Sensitive', 'On hold', 'Needs verification', 'Verified', 'Verify failed'];
 
   // google spreadsheet request
   let xmlhttp = new XMLHttpRequest();
@@ -41,7 +41,7 @@ $(document).ready(function () {
         data[i]["gsx$_ciyn3"]["$t"],  // unrecoverable
         data[i]["gsx$_ckd7g"]["$t"],  // sensitive
         data[i]["gsx$_clrrx"]["$t"],  // on hold
-        data[i]["gsx$_cyevm"]["$t"],  // success
+        data[i]["gsx$_cyevm"]["$t"],  // needs verification
         data[i]["gsx$_cztg3"]["$t"],  // verified
         data[i]["gsx$_d180g"]["$t"]   // verify failed
       ];
@@ -56,7 +56,7 @@ $(document).ready(function () {
         data[i]["gsx$_d9ney"]["$t"],  // unrecoverable
         data[i]["gsx$_db1zf"]["$t"],  // sensitive
         data[i]["gsx$_dcgjs"]["$t"],  // on hold
-        data[i]["gsx$_ddv49"]["$t"],  // success
+        data[i]["gsx$_ddv49"]["$t"],  // needs verification
         data[i]["gsx$_d415a"]["$t"],  // verified
         data[i]["gsx$_d5fpr"]["$t"]   // verify failed
       ];
@@ -71,7 +71,7 @@ $(document).ready(function () {
         data[i]["gsx$_dp3nl"]["$t"],    // unrecoverable
         data[i]["gsx$_df9om"]["$t"],    // sensitive
         data[i]["gsx$_dgo93"]["$t"],    // on hold
-        data[i]["gsx$_di2tg"]["$t"],    // success
+        data[i]["gsx$_di2tg"]["$t"],    // needs verification
         data[i]["gsx$_djhdx"]["$t"],    // verified
         data[i]["gsx$_dw4je"]["$t"]     // verify failed
       ];
@@ -101,12 +101,12 @@ $(document).ready(function () {
         }
       };
       let bytesChartData = {
-        labels: labels.slice(0,7),
+        labels: labels.slice(0,9),
         datasets: [
           {
-            backgroundColor: colors.slice(0,7),
+            backgroundColor: colors.slice(0,9),
             borderWidth: 1,
-            data: bytes_data.slice(0,7),
+            data: bytes_data.slice(0,9),
           }
         ]
       };
@@ -141,12 +141,12 @@ $(document).ready(function () {
         }
       };
       let filesChartData = {
-        labels: labels.slice(0,7),
+        labels: labels.slice(0,9),
         datasets: [
           {
-            backgroundColor: colors.slice(0,7),
+            backgroundColor: colors.slice(0,9),
             borderWidth: 1,
-            data: files_data.slice(0,7)
+            data: files_data.slice(0,9)
           }
         ]
       };
@@ -181,12 +181,12 @@ $(document).ready(function () {
         }
       };
       let objectsChartData = {
-        labels: labels.slice(0,7),
+        labels: labels.slice(0,9),
         datasets: [
           {
-            backgroundColor: colors.slice(0,7),
+            backgroundColor: colors.slice(0,9),
             borderWidth: 1,
-            data: objects_data.slice(0,7)
+            data: objects_data.slice(0,9)
           }
         ]
       };
@@ -212,11 +212,11 @@ $(document).ready(function () {
       for(i=1;i<data.length;i++){
         dateArray.push(data[i]["gsx$date"]["$t"]); // array of dates for x-axis
 
-        calcRemaining(bytesRemaining, data[i]["gsx$_d2mkx"]["$t"], data[i]["gsx$_cyevm"]["$t"], 12);
+        calcRemaining(bytesRemaining, data[i]["gsx$_d2mkx"]["$t"], data[i]["gsx$_cztg3"]["$t"], 12);
 
-        calcRemaining(filesRemaining, data[i]["gsx$_d6ua4"]["$t"], data[i]["gsx$_ddv49"]["$t"], 6);
+        calcRemaining(filesRemaining, data[i]["gsx$_d6ua4"]["$t"], data[i]["gsx$_d415a"]["$t"], 6);
 
-        calcRemaining(objectsRemaining, data[i]["gsx$_dxj3v"]["$t"], data[i]["gsx$_di2tg"]["$t"], 3);
+        calcRemaining(objectsRemaining, data[i]["gsx$_dxj3v"]["$t"], data[i]["gsx$_djhdx"]["$t"], 3);
       }
 
       // bytes trends
@@ -253,7 +253,7 @@ $(document).ready(function () {
       let bytesTrendsData = {
         labels: dateArray,
         datasets: [{
-            label: 'Total TB remaining',
+            label: 'Total TB remaining to be verified',
             data: bytesRemaining,
             borderColor: colors[2],
             backgroundColor: colors[2],
@@ -311,7 +311,7 @@ $(document).ready(function () {
       let filesTrendsData = {
         labels: dateArray,
         datasets: [{
-            label: 'Total MB remaining',
+            label: 'Total MB remaining to be verified',
             data: filesRemaining,
             borderColor: colors[2],
             backgroundColor: colors[2],
@@ -369,7 +369,7 @@ $(document).ready(function () {
       let objectsTrendsData = {
         labels: dateArray,
         datasets: [{
-            label: 'Total KB remaining',
+            label: 'Total KB remaining to be verified',
             data: objectsRemaining,
             borderColor: colors[2],
             backgroundColor: colors[2],
@@ -407,7 +407,7 @@ $(document).ready(function () {
       let lr = {}; // object for regression stats
       linearRegression(bytesRemaining, bytesScatterArray);
 
-      // calculate regression
+      // calculate regression + create objects for scatter plot
       function linearRegression(y, scatterPlot){
         // var lr = {}; defined globally
         var n = y.length;
@@ -423,8 +423,14 @@ $(document).ready(function () {
             sum_xy += (i*y[i]);
             sum_xx += (i*i);
             sum_yy += (y[i]*y[i]);
+        }
 
+        for (var i = 0; i < 16; i++) {
             scatterPlot.push({x: i, y: y[i]});
+        }
+
+        for (var i = 16; i < y.length; i++) {
+            scatterPlot.push({x: i+4, y: y[i]});
         }
 
         lr['slope'] = (n * sum_xy - sum_x * sum_y) / (n*sum_xx - sum_x * sum_x);
@@ -434,18 +440,27 @@ $(document).ready(function () {
         console.log(lr);
       }
 
-      // equation: y = mx * b
       let m = lr['slope'];
       let b = lr['intercept'];
       let bytesRegressionArray = [
         {x: 0,y: b},
-        {x: data.length - 2,y: m*(data.length - 2) + b}
+        {x: data.length + 2,y: m*(data.length + 2) + b}
       ];
 
+      // equation: y = mx * b
       $(".hl__equation").html("y = " + m.toFixed(2) + "x + " + b.toFixed(2))
-      $(".hl__projection").html((-b/m).toFixed(2) + " days");
+      // projection when y = 0, minus # of days since started tracking
+      $(".hl__projection").html((-b/m - (data.length + 3)).toFixed(2) + " days");
+
+      console.log("bytesScatterArray:");
+      console.log(bytesScatterArray);
+      console.log("bytesRegressionArray:");
+      console.log(bytesRegressionArray);
+      console.log("data.length:");
+      console.log(data.length);
 
       let bytesRegressionOptions = {
+        responsive: true,
         plugins: {
           title: {
             display: true,
@@ -526,8 +541,8 @@ $(document).ready(function () {
   }
 
   // create array of total amount remaining
-  function calcRemaining(array, total, success, exponent){
-    let remaining = parseInt(total) - parseInt(success);
+  function calcRemaining(array, total, verified, exponent){
+    let remaining = parseInt(total) - parseInt(verified);
     array.push(remaining/(10**exponent));
   }
 });
