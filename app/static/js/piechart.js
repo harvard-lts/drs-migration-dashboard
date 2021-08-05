@@ -14,7 +14,7 @@ $(document).ready(function () {
   Chart.defaults.plugins.title.font.lineHeight = 1.5;
 
   // chart colors
-  let colors = ['#c0c0c0','#f8c21c','#a51c30','#eb001b','#414141','#0579b8','#8BDA4C','#3E6F7D','red'];
+  let colors = ['#c0c0c0','#f8c21c','#a51c30','#eb001b','#414141','#0579b8','#8DBA4B','#3E6F7D','red'];
   let lineColor = '#3e6f7d';
 
   // labels
@@ -43,7 +43,7 @@ $(document).ready(function () {
         data[i]["gsx$_clrrx"]["$t"],  // on hold
         data[i]["gsx$_cyevm"]["$t"],  // success
         data[i]["gsx$_cztg3"]["$t"],  // verified
-        data[i]["gsx$_d180g"]["$t"]   // verfied failed
+        data[i]["gsx$_d180g"]["$t"]   // verified failed
       ];
 
       let bytes_total = data[i]["gsx$_d2mkx"]["$t"]; // total
@@ -58,7 +58,7 @@ $(document).ready(function () {
         data[i]["gsx$_dcgjs"]["$t"],  // on hold
         data[i]["gsx$_ddv49"]["$t"],  // success
         data[i]["gsx$_d415a"]["$t"],  // verified
-        data[i]["gsx$_d5fpr"]["$t"]   // verfied failed
+        data[i]["gsx$_d5fpr"]["$t"]   // verified failed
       ];
 
       let files_total = data[i]["gsx$_d6ua4"]["$t"]; // total
@@ -73,7 +73,7 @@ $(document).ready(function () {
         data[i]["gsx$_dgo93"]["$t"],    // on hold
         data[i]["gsx$_di2tg"]["$t"],    // success
         data[i]["gsx$_djhdx"]["$t"],    // verified
-        data[i]["gsx$_dw4je"]["$t"]     // verfied failed
+        data[i]["gsx$_dw4je"]["$t"]     // verified failed
       ];
 
       let objects_total = data[i]["gsx$_dxj3v"]["$t"]; // total
@@ -101,12 +101,13 @@ $(document).ready(function () {
         }
       };
       let bytesChartData = {
-        labels: labels,
+        labels: labels.slice(0,7),
         datasets: [
           {
-            backgroundColor: colors.slice(0,9),
+            backgroundColor: colors.slice(0,7),
+            hoverBackgroundColor: colors.slice(0,7),
             borderWidth: 1,
-            data: bytes_data,
+            data: bytes_data.slice(0,7),
           }
         ]
       };
@@ -141,12 +142,13 @@ $(document).ready(function () {
         }
       };
       let filesChartData = {
-        labels: labels,
+        labels: labels.slice(0,7),
         datasets: [
           {
-            backgroundColor: colors.slice(0,9),
+            backgroundColor: colors.slice(0,7),
+            hoverBackgroundColor: colors.slice(0,7),
             borderWidth: 1,
-            data: files_data
+            data: files_data.slice(0,7)
           }
         ]
       };
@@ -181,12 +183,13 @@ $(document).ready(function () {
         }
       };
       let objectsChartData = {
-        labels: labels,
+        labels: labels.slice(0,7),
         datasets: [
           {
-            backgroundColor: colors.slice(0,9),
+            backgroundColor: colors.slice(0,7),
+            hoverBackgroundColor: colors.slice(0,7),
             borderWidth: 1,
-            data: objects_data
+            data: objects_data.slice(0,7)
           }
         ]
       };
@@ -198,6 +201,7 @@ $(document).ready(function () {
           options: objectsChartOptions
         });
       }
+
 
       // table views
       createTable("#bytes-numbers", bytes_data, bytes_total, bytes_percent_complete);
@@ -214,11 +218,11 @@ $(document).ready(function () {
       for(i=1;i<data.length;i++){
         dateArray.push(data[i]["gsx$date"]["$t"]); // array of dates for x-axis
 
-        calcRemaining(bytesRemaining, data[i]["gsx$_d2mkx"]["$t"], data[i]["gsx$_cyevm"]["$t"], data[i]["gsx$_cztg3"]["$t"], data[i]["gsx$_d180g"]["$t"], 12);
+        calcRemaining(bytesRemaining, data[i]["gsx$_d2mkx"]["$t"], data[i]["gsx$_cyevm"]["$t"], 12);
 
-        calcRemaining(filesRemaining, data[i]["gsx$_d6ua4"]["$t"], data[i]["gsx$_ddv49"]["$t"], data[i]["gsx$_d415a"]["$t"], data[i]["gsx$_d5fpr"]["$t"], 6);
+        calcRemaining(filesRemaining, data[i]["gsx$_d6ua4"]["$t"], data[i]["gsx$_ddv49"]["$t"], 6);
 
-        calcRemaining(objectsRemaining, data[i]["gsx$_dxj3v"]["$t"], data[i]["gsx$_di2tg"]["$t"], data[i]["gsx$_djhdx"]["$t"], data[i]["gsx$_dw4je"]["$t"], 3);
+        calcRemaining(objectsRemaining, data[i]["gsx$_dxj3v"]["$t"], data[i]["gsx$_di2tg"]["$t"], 3);
       }
 
       // bytes trends
@@ -394,6 +398,15 @@ $(document).ready(function () {
           options: objectsTrendsOptions
         });
       }
+
+
+      // list of object ids for verified_failed
+      let objFailed = [482556371, 482559255, 482554466, 482559263, 482559259, 482556387, 482559267]
+      for(i=0;i<objFailed.length;i++){
+        $("#objects-failed table tbody").append(
+          '<tr><td>'+objFailed[i]+'</td></tr>'
+        );
+      }
     }
   };
 
@@ -411,11 +424,11 @@ $(document).ready(function () {
     let dataTable = $el.find("tbody");
     for(i=0;i<labels.length;i++){
       $(dataTable).append(
-        '<tr><td>'+labels[i]+'</td><td>'+numberWithCommas(data[i])+'</dt></tr>'
+        '<tr><td>'+labels[i]+'</td><td>'+numberWithCommas(data[i])+'</td></tr>'
       );
     }
     $(dataTable).append(
-      '<tr><td>Total</td><td>'+numberWithCommas(dataTotal)+'</dt></tr><tr><td>% complete</td><td>'+dataComplete+'</dt></tr>'
+      '<tr><td>Total</td><td>'+numberWithCommas(dataTotal)+'</td></tr><tr><td>% complete</td><td>'+dataComplete+'</td></tr>'
     );
   }
 
@@ -425,8 +438,8 @@ $(document).ready(function () {
   }
 
   // create array of total amount remaining
-  function calcRemaining(array, total, success, verified, verified_failed, exponent){
-    let remaining = parseInt(total) - (parseInt(success) + parseInt(verified) + parseInt(verified_failed));
+  function calcRemaining(array, total, success, exponent){
+    let remaining = parseInt(total) - parseInt(success);
     array.push(remaining/(10**exponent));
   }
 });
