@@ -81,14 +81,6 @@ $(document).ready(function () {
 
       // bytes chart
       let bytesChartOptions = {
-        legend: {
-          position:'bottom',
-          padding:5,
-          labels: {
-            pointStyle:'circle',
-            usePointStyle:true
-          }
-        },
         plugins: {
           title: {
             display: true,
@@ -121,14 +113,6 @@ $(document).ready(function () {
 
       // files chart
       let filesChartOptions = {
-        legend: {
-          position:'bottom',
-          padding:5,
-          labels: {
-            pointStyle:'circle',
-            usePointStyle:true
-          }
-        },
         plugins: {
           title: {
             display: true,
@@ -161,14 +145,6 @@ $(document).ready(function () {
 
       // objects chart
       let objectsChartOptions = {
-        legend: {
-          position:'bottom',
-          padding:5,
-          labels: {
-            pointStyle:'circle',
-            usePointStyle:true
-          }
-        },
         plugins: {
           title: {
             display: true,
