@@ -97,6 +97,7 @@ $(document).ready(function () {
         datasets: [
           {
             backgroundColor: colors.slice(0,9),
+            hoverBackgroundColor: colors.slice(0,9),
             borderWidth: 1,
             data: bytes_data.slice(0,9),
           }
@@ -129,6 +130,7 @@ $(document).ready(function () {
         datasets: [
           {
             backgroundColor: colors.slice(0,9),
+            hoverBackgroundColor: colors.slice(0,9),
             borderWidth: 1,
             data: files_data.slice(0,9)
           }
@@ -161,6 +163,7 @@ $(document).ready(function () {
         datasets: [
           {
             backgroundColor: colors.slice(0,9),
+            hoverBackgroundColor: colors.slice(0,9),
             borderWidth: 1,
             data: objects_data.slice(0,9)
           }
@@ -237,7 +240,6 @@ $(document).ready(function () {
             data: bytesRemaining,
             borderColor: colors[2],
             backgroundColor: colors[2],
-            // pointBackgroundColor: colors[2],
             tension: 0.1,
             segment: {
               borderColor: ctx => skipped(ctx, 'rgb(0,0,0,0.2)') || down(ctx, 'rgb(192,75,75)'),
