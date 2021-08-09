@@ -24,60 +24,60 @@ $(document).ready(function () {
   let xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
-      let data = JSON.parse(this.responseText).feed.entry;
+      let data = JSON.parse(this.responseText);
 
       let i = data.length - 1; // last updated row
 
-      let date = data[i]["gsx$date"]["$t"];
-      let time = data[i]["gsx$time"]["$t"];
+      let date = data[i]["Date"];
+      let time = data[i]["Time"];
 
       $(".hl__date").html(date);
       $(".hl__time").html(time);
 
       let bytes_data = [
-        data[i]["gsx$bybytes"]["$t"], //pending
-        data[i]["gsx$_cre1l"]["$t"],  // in process
-        data[i]["gsx$_chk2m"]["$t"],  // failure
-        data[i]["gsx$_ciyn3"]["$t"],  // unrecoverable
-        data[i]["gsx$_ckd7g"]["$t"],  // sensitive
-        data[i]["gsx$_clrrx"]["$t"],  // on hold
-        data[i]["gsx$_cyevm"]["$t"],  // success
-        data[i]["gsx$_cztg3"]["$t"],  // verified
-        data[i]["gsx$_d180g"]["$t"]   // verified failed
+        data[i]["PendingBytes"], //pending
+        data[i]["In ProcessBytes"],  // in process
+        data[i]["FailureBytes"],  // failure
+        data[i]["UnrecoverableBytes"],  // unrecoverable
+        data[i]["SensitiveBytes"],  // sensitive
+        data[i]["On holdBytes"],  // on hold
+        data[i]["Needs verificationBytes"],  // success
+        data[i]["VerifiedBytes"],  // verified
+        data[i]["Verify failedBytes"]   // verified failed
       ];
 
-      let bytes_total = data[i]["gsx$_d2mkx"]["$t"]; // total
-      let bytes_percent_complete = data[i]["gsx$_cssly"]["$t"]; // % complete
+      let bytes_total = data[i]["TotalBytes"]; // total
+      let bytes_percent_complete = data[i]["% CompleteBytes"]; // % complete
 
       let files_data = [
-        data[i]["gsx$byfiles"]["$t"], //pending
-        data[i]["gsx$_cvlqs"]["$t"],  // in process
-        data[i]["gsx$_cx0b9"]["$t"],  // failure
-        data[i]["gsx$_d9ney"]["$t"],  // unrecoverable
-        data[i]["gsx$_db1zf"]["$t"],  // sensitive
-        data[i]["gsx$_dcgjs"]["$t"],  // on hold
-        data[i]["gsx$_ddv49"]["$t"],  // success
-        data[i]["gsx$_d415a"]["$t"],  // verified
-        data[i]["gsx$_d5fpr"]["$t"]   // verified failed
+        data[i]["PendingFiles"], //pending
+        data[i]["In ProcessFiles"],  // in process
+        data[i]["FailureFiles"],  // failure
+        data[i]["UnrecoverableFiles"],  // unrecoverable
+        data[i]["SensitiveFiles"],  // sensitive
+        data[i]["On holdFiles"],  // on hold
+        data[i]["Needs verificationFiles"],  // success
+        data[i]["VerifiedFiles"],  // verified
+        data[i]["Verify failedFiles"]   // verified failed
       ];
 
-      let files_total = data[i]["gsx$_d6ua4"]["$t"]; // total
-      let files_percent_complete = data[i]["gsx$_d88ul"]["$t"]; // % complete
+      let files_total = data[i]["TotalFiles"]; // total
+      let files_percent_complete = data[i]["% CompleteFiles"]; // % complete
 
       let objects_data = [
-        data[i]["gsx$byobjects"]["$t"], //pending
-        data[i]["gsx$_dmair"]["$t"],    // in process
-        data[i]["gsx$_dnp34"]["$t"],    // failure
-        data[i]["gsx$_dp3nl"]["$t"],    // unrecoverable
-        data[i]["gsx$_df9om"]["$t"],    // sensitive
-        data[i]["gsx$_dgo93"]["$t"],    // on hold
-        data[i]["gsx$_di2tg"]["$t"],    // success
-        data[i]["gsx$_djhdx"]["$t"],    // verified
-        data[i]["gsx$_dw4je"]["$t"]     // verified failed
+        data[i]["PendingObject"], //pending
+        data[i]["In ProcessObject"],  // in process
+        data[i]["FailureObject"],  // failure
+        data[i]["UnrecoverableObject"],  // unrecoverable
+        data[i]["SensitiveObject"],  // sensitive
+        data[i]["On holdObject"],  // on hold
+        data[i]["Needs verificationObject"],  // success
+        data[i]["VerifiedObject"],  // verified
+        data[i]["Verify failedObject"]   // verified failed
       ];
 
-      let objects_total = data[i]["gsx$_dxj3v"]["$t"]; // total
-      let objects_percent_complete = data[i]["gsx$_dyxo8"]["$t"]; // % complete
+      let objects_total = data[i]["TotalObject"]; // total
+      let objects_percent_complete = data[i]["% CompleteObject"]; // % complete
 
       // bytes chart
       let bytesChartOptions = {
@@ -216,13 +216,13 @@ $(document).ready(function () {
       let objectsRemaining = [];
 
       for(i=1;i<data.length;i++){
-        dateArray.push(data[i]["gsx$date"]["$t"]); // array of dates for x-axis
+        dateArray.push(data[i]["Date"]); // array of dates for x-axis
 
-        calcRemaining(bytesRemaining, data[i]["gsx$_d2mkx"]["$t"], data[i]["gsx$_cyevm"]["$t"], 12);
+        calcRemaining(bytesRemaining, data[i]["TotalBytes"], data[i]["VerifiedBytes"], 12);
 
-        calcRemaining(filesRemaining, data[i]["gsx$_d6ua4"]["$t"], data[i]["gsx$_ddv49"]["$t"], 6);
+        calcRemaining(filesRemaining, data[i]["TotalFiles"], data[i]["VerifiedFiles"], 6);
 
-        calcRemaining(objectsRemaining, data[i]["gsx$_dxj3v"]["$t"], data[i]["gsx$_di2tg"]["$t"], 3);
+        calcRemaining(objectsRemaining, data[i]["TotalObject"], data[i]["VerifiedObject"], 3);
       }
 
       // bytes trends
@@ -400,23 +400,34 @@ $(document).ready(function () {
       }
 
 
-      // list of object ids for verified_failed
-      let objFailed = [482556371, 482559255, 482554466, 482559263, 482559259, 482556387, 482559267]
-      for(i=0;i<objFailed.length;i++){
-        $("#objects-failed table tbody").append(
-          '<tr><td>'+objFailed[i]+'</td></tr>'
-        );
+      // list of object ids for object
+      let xmlhttp2 = new XMLHttpRequest();
+      xmlhttp2.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          let objFailed = JSON.parse(this.responseText);
+          for(i=0;i<objFailed.length;i++){
+            $("#objects-failed table tbody").append(
+              '<tr><td>'+FailedIDs[i]+'</td></tr>'
+            );
+          }
+        }
       }
     }
   };
 
   xmlhttp.open(
     "GET",
-    "https://spreadsheets.google.com/feeds/list/1FFv-csMLes-c6rQWCQBZa1PvrlY0b78XpQs8LpppUZA/2/public/values?alt=json",
+    "https://localhost:3001/migrationstatus/static/files/drs_migration.json",
     true
   );
   xmlhttp.send();
 
+  xmlhttp2.open(
+    "GET",
+    "https://localhost:3001/migrationstatus/static/files/failed_list.json",
+    true
+  );
+  xmlhttp2.send();
 
   // create tables
   function createTable(dataId, data, dataTotal, dataComplete){
