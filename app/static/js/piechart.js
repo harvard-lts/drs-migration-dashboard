@@ -26,7 +26,7 @@ $(document).ready(function () {
     if (this.readyState == 4 && this.status == 200) {
       let data = JSON.parse(this.responseText).feed.entry;
 
-      let i = data.length - 1; // last updated row
+      let i = data.length - 1; // last updated row, data[0] = headers
 
       let date = data[i]["gsx$date"]["$t"];
       let time = data[i]["gsx$time"]["$t"];
@@ -150,7 +150,7 @@ $(document).ready(function () {
           }
         ]
       };
-      var filesChart = document.getElementById("filesChart");
+      let filesChart = $("#filesChart");
       if (filesChart) {
         new Chart(filesChart, {
           type: 'doughnut',
@@ -190,7 +190,7 @@ $(document).ready(function () {
           }
         ]
       };
-      var objectsChart = document.getElementById("objectsChart");
+      let objectsChart = $("#objectsChart");
       if (objectsChart) {
         new Chart(objectsChart, {
           type: 'doughnut',
@@ -213,14 +213,18 @@ $(document).ready(function () {
         dateArray.push(data[i]["gsx$date"]["$t"]); // array of dates for x-axis
 
         calcRemaining(bytesRemaining, data[i]["gsx$_d2mkx"]["$t"], data[i]["gsx$_cztg3"]["$t"], 12);
-
         calcRemaining(filesRemaining, data[i]["gsx$_d6ua4"]["$t"], data[i]["gsx$_d415a"]["$t"], 6);
-
         calcRemaining(objectsRemaining, data[i]["gsx$_dxj3v"]["$t"], data[i]["gsx$_djhdx"]["$t"], 3);
       }
 
+
+      let skipped = (ctx, value) => ctx.p0.skip || ctx.p1.skip ? value : undefined;
+      let down = (ctx, value) => ctx.p0.parsed.y > ctx.p1.parsed.y ? value : undefined;
+
       // bytes trends
       let bytesTrendsOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
         plugins: {
           tooltip: {
             mode: 'index',
@@ -257,10 +261,15 @@ $(document).ready(function () {
             data: bytesRemaining,
             borderColor: colors[2],
             backgroundColor: colors[2],
-            tension: 0.1
+            // pointBackgroundColor: colors[2],
+            tension: 0.1,
+            segment: {
+              borderColor: ctx => skipped(ctx, 'rgb(0,0,0,0.2)') || down(ctx, 'rgb(192,75,75)'),
+              borderDash: ctx => skipped(ctx, [6, 6]),
+            }
         }]
       };
-      let bytesTrends = document.getElementById("bytesTrends");
+      let bytesTrends = $("#bytesTrends");
       if (bytesTrends) {
         new Chart(bytesTrends, {
           type: 'line',
@@ -268,7 +277,7 @@ $(document).ready(function () {
           options: bytesTrendsOptions
         });
       }
-      let bytesTrendsModal = document.getElementById("bytesTrendsModal");
+      let bytesTrendsModal = $("#bytesTrendsModal");
       if (bytesTrendsModal) {
         new Chart(bytesTrendsModal, {
           type: 'line',
@@ -279,6 +288,8 @@ $(document).ready(function () {
 
       // files trends
       let filesTrendsOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
         plugins: {
           tooltip: {
             mode: 'index',
@@ -315,10 +326,14 @@ $(document).ready(function () {
             data: filesRemaining,
             borderColor: colors[2],
             backgroundColor: colors[2],
-            tension: 0.1
+            tension: 0.1,
+            segment: {
+              borderColor: ctx => skipped(ctx, 'rgb(0,0,0,0.2)') || down(ctx, 'rgb(192,75,75)'),
+              borderDash: ctx => skipped(ctx, [6, 6]),
+            }
         }]
       };
-      let filesTrends = document.getElementById("filesTrends");
+      let filesTrends = $("#filesTrends");
       if (filesTrends) {
         new Chart(filesTrends, {
           type: 'line',
@@ -326,7 +341,7 @@ $(document).ready(function () {
           options: filesTrendsOptions
         });
       }
-      let filesTrendsModal = document.getElementById("filesTrendsModal");
+      let filesTrendsModal = $("#filesTrendsModal");
       if (filesTrendsModal) {
         new Chart(filesTrendsModal, {
           type: 'line',
@@ -337,6 +352,8 @@ $(document).ready(function () {
 
       // objects trends
       let objectsTrendsOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
         plugins: {
           tooltip: {
             mode: 'index',
@@ -373,10 +390,14 @@ $(document).ready(function () {
             data: objectsRemaining,
             borderColor: colors[2],
             backgroundColor: colors[2],
-            tension: 0.1
+            tension: 0.1,
+            segment: {
+              borderColor: ctx => skipped(ctx, 'rgb(0,0,0,0.2)') || down(ctx, 'rgb(192,75,75)'),
+              borderDash: ctx => skipped(ctx, [6, 6]),
+            }
         }]
       };
-      let objectsTrends = document.getElementById("objectsTrends");
+      let objectsTrends = $("#objectsTrends");
       if (objectsTrends) {
         new Chart(objectsTrends, {
           type: 'line',
@@ -384,7 +405,7 @@ $(document).ready(function () {
           options: objectsTrendsOptions
         });
       }
-      let objectsTrendsModal = document.getElementById("objectsTrendsModal");
+      let objectsTrendsModal = $("#objectsTrendsModal");
       if (objectsTrendsModal) {
         new Chart(objectsTrendsModal, {
           type: 'line',
@@ -395,7 +416,7 @@ $(document).ready(function () {
 
 
       // list of object ids for verify_failed
-      let objFailed = [482556371, 482559255, 482554466, 482559263, 482559259, 482556387, 482559267]
+      let objFailed = ["482556371", "482559255", "482554466", "482559263", "482559259", "482556387", "482559267", "482583448", "402837016", "408748157", "408788027", "408807903", "409015554", "408756445", "409006283", "482659885", "409200207", "409023575", "482656585", "408959133", "409224029", "409022459", "409173959", "409016769", "409269448", "409684124", "409731627", "409376999", "409688525", "409645530", "409411763", "482757873", "409509889", "482765298", "409689690", "409547468", "409524660", "409830201", "409955289", "409938021", "482762430", "409956657", "48491625", "423493964"]
       for(i=0;i<objFailed.length;i++){
         $("#objects-failed table tbody").append(
           '<tr><td>'+objFailed[i]+'</td></tr>'
@@ -405,62 +426,57 @@ $(document).ready(function () {
       // bytes regression
       let bytesScatterArray = []; // x and y values to plot
       let lr = {}; // object for regression stats
+      let day = 0;
       linearRegression(bytesRemaining, bytesScatterArray);
 
       // calculate regression + create objects for scatter plot
       function linearRegression(y, scatterPlot){
-        // var lr = {}; defined globally
-        var n = y.length;
-        var sum_x = 0;
-        var sum_y = 0;
-        var sum_xy = 0;
-        var sum_xx = 0;
-        var sum_yy = 0;
+        // let lr = {}; defined globally
+        let n = 0;
+        let sum_x = 0;
+        let sum_y = 0;
+        let sum_xy = 0;
+        let sum_xx = 0;
+        let sum_yy = 0;
 
-        for (var i = 0; i < y.length; i++) {
-            sum_x += i;
+        for (i = 12; i < y.length; i++) {
+          // skip days we didn't collect data
+          if (!(isNaN(y[i]))){
+            sum_x += day;
             sum_y += y[i];
-            sum_xy += (i*y[i]);
-            sum_xx += (i*i);
+            sum_xy += (day*y[i]);
+            sum_xx += (day*day);
             sum_yy += (y[i]*y[i]);
-        }
+            n += 1;
 
-        for (var i = 0; i < 16; i++) {
-            scatterPlot.push({x: i, y: y[i]});
-        }
+            scatterPlot.push({x: day, y: y[i]});
+          }
 
-        for (var i = 16; i < y.length; i++) {
-            scatterPlot.push({x: i+4, y: y[i]});
+          day += 1;
         }
 
         lr['slope'] = (n * sum_xy - sum_x * sum_y) / (n*sum_xx - sum_x * sum_x);
         lr['intercept'] = (sum_y - lr.slope * sum_x)/n;
         lr['r2'] = Math.pow((n*sum_xy - sum_x*sum_y)/Math.sqrt((n*sum_xx-sum_x*sum_x)*(n*sum_yy-sum_y*sum_y)),2);
-
-        console.log(lr);
       }
 
       let m = lr['slope'];
       let b = lr['intercept'];
       let bytesRegressionArray = [
-        {x: 0,y: b},
-        {x: data.length + 2,y: m*(data.length + 2) + b}
+        {x: 0, y: b},
+        {x: day - 1, y: m*(day - 1) + b}
       ];
 
       // equation: y = mx * b
-      $(".hl__equation").html("y = " + m.toFixed(2) + "x + " + b.toFixed(2))
-      // projection when y = 0, minus # of days since started tracking
-      $(".hl__projection").html((-b/m - (data.length + 3)).toFixed(2) + " days");
+      let equation = "y = " + m.toFixed(2) + "x + " + b.toFixed(2);
+      $(".hl__equation").html(equation)
 
-      console.log("bytesScatterArray:");
-      console.log(bytesScatterArray);
-      console.log("bytesRegressionArray:");
-      console.log(bytesRegressionArray);
-      console.log("data.length:");
-      console.log(data.length);
+      // projection when y = 0, minus # of days since started the verification process
+      $(".hl__projection").html(((-b/m).toFixed(2)-(day)) + " days");
 
       let bytesRegressionOptions = {
         responsive: true,
+        maintainAspectRatio: false,
         plugins: {
           title: {
             display: true,
@@ -469,13 +485,16 @@ $(document).ready(function () {
               top:10,
               bottom:10
             }
+          },
+          legend: {
+            position: 'bottom'
           }
         },
         scales: {
           x: {
             title: {
               display: true,
-              text: 'Days since started collecting data'
+              text: 'Days since started verifying data (7/27/21)'
             }
           },
           y: {
@@ -488,13 +507,13 @@ $(document).ready(function () {
       };
       let bytesRegressionData = {
         datasets: [{
-            label: 'Scatter plot',
+            label: 'Data',
             data: bytesScatterArray,
             borderColor: colors[2],
             backgroundColor: colors[2],
             type: 'scatter'
         },{
-            label: 'Linear regression line',
+            label: 'Linear regression',
             data: bytesRegressionArray,
             borderColor: colors[0],
             backgroundColor: colors[0],
@@ -502,7 +521,7 @@ $(document).ready(function () {
             type: 'line'
         }]
       };
-      let bytesRegression = document.getElementById("bytesRegression");
+      let bytesRegression = $("#bytesRegression");
       if (bytesRegression) {
         new Chart(bytesRegression, {
           type: 'scatter',

@@ -693,8 +693,17 @@ th {
 td:last-child {
   text-align: right;
 }
+#objects-failed tbody {
+  display: flex;
+  flex-wrap: wrap;
+}
+#objects-failed tr {
+  width: 33%;
+  border-top: 1px solid #dee2e6;
+}
 #objects-failed td {
   text-align: left;
+  border-top: 0;
 }
 
 .card-body a {
