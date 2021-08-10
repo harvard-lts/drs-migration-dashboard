@@ -129,6 +129,7 @@ $(document).ready(function () {
         labels: labels.slice(0,9),
         datasets: [
           {
+
             backgroundColor: colors.slice(0,9),
             hoverBackgroundColor: colors.slice(0,9),
             borderWidth: 1,
