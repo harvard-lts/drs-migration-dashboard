@@ -476,13 +476,6 @@ $(document).ready(function () {
               bottom:10
             }
           },
-          subtitle: {
-            display: true,
-            text: "Projected completion date: " + dateString + " (" + projection + " days away)",
-            padding:{
-              bottom:10
-            }
-          },
           legend: {
             position: 'bottom'
           }
@@ -521,6 +514,14 @@ $(document).ready(function () {
       let bytesRegression = $("#bytesRegression");
       if (bytesRegression) {
         new Chart(bytesRegression, {
+          type: 'scatter',
+          data: bytesRegressionData,
+          options: bytesRegressionOptions
+        });
+      }
+      let bytesRegressionModal = $("#bytesRegressionModal");
+      if (bytesRegressionModal) {
+        new Chart(bytesRegressionModal, {
           type: 'scatter',
           data: bytesRegressionData,
           options: bytesRegressionOptions

@@ -38,7 +38,8 @@
             <div class="tab-pane fade" id="bytes-trends" role="tabpanel" aria-labelledby="bytes-trends-tab">
               <div style="height: 300px"><canvas id="bytesTrends"></canvas></div>
               <a href="#" data-toggle="modal" data-target="#bytesModal">Click to enlarge<span class="sr-only">progress by bytes line graph</span></a>
-              <div style="height: 350px"><canvas id="bytesRegression"></canvas></div>
+              <div style="height: 350px; margin-bottom: -30px"><canvas id="bytesRegression"></canvas></div>
+              <a href="#" data-toggle="modal" data-target="#regressionModal">Click to enlarge<span class="sr-only">best fit regression graph</span></a>
               <div class="hl__prediction">
                 <p>Projected completion date: <span class="hl__projection">projection</span></p>
               </div>
@@ -199,6 +200,29 @@
         </div>
         <div class="modal-body">
           <div style="height: 100%"><canvas id="bytesTrendsModal"></canvas></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: linear regression graph -->
+  <div class="modal fade" id="regressionModal" tabindex="-1" role="dialog" aria-labelledby="regressionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title sr-only" id="regressionModalLabel">Best fit regression</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div style="height: 100%"><canvas id="bytesRegressionModal"></canvas></div>
+          <div class="hl__prediction">
+            <p>Projected completion date: <span class="hl__projection">projection</span></p>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>

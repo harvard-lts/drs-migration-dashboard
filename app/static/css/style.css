@@ -716,14 +716,14 @@ td:last-child {
   margin-top: 40px;
 }
 .hl__prediction p {
-	padding-top: 0;
-	font-weight: 300;
+  color: #1e1e1e;
+  font-weight: 600;
   font-size: 17px;
 	text-align: left;
 }
 .hl__prediction p span {
   white-space: nowrap;
 }
-.hl__equation {
-  min-width: 190px;
+.modal .hl__prediction p {
+  padding-top: 20px;
 }
