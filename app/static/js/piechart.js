@@ -451,7 +451,18 @@ $(document).ready(function () {
       $(".hl__equation").html(equation)
 
       // projection when y = 0, minus # of days since started the verification process
-      $(".hl__projection").html(((-b/m).toFixed(2)-(day)) + " days");
+      let projection = (-b/m).toFixed(0)-(day);
+
+      // calculate projected date of migration completion
+      let targetDate = new Date();
+      targetDate.setDate(targetDate.getDate() + projection);
+      let dd = targetDate.getDate();
+      let mm = targetDate.getMonth() + 1; // 0 is January, so we must add 1
+      let yyyy = targetDate.getFullYear();
+
+      var dateString = mm + "/" + dd + "/" + yyyy;
+
+      $(".hl__projection").html(dateString + " (" + projection + " days away)");
 
       let bytesRegressionOptions = {
         responsive: true,
@@ -459,9 +470,16 @@ $(document).ready(function () {
         plugins: {
           title: {
             display: true,
-            text: "Best fitting regression line",
+            text: "Best fit regression",
             padding:{
               top:10,
+              bottom:10
+            }
+          },
+          subtitle: {
+            display: true,
+            text: "Projected completion date: " + dateString + " (" + projection + " days away)",
+            padding:{
               bottom:10
             }
           },
@@ -492,7 +510,7 @@ $(document).ready(function () {
             backgroundColor: colors[2],
             type: 'scatter'
         },{
-            label: 'Linear regression',
+            label: 'Linear regression: ' + equation,
             data: bytesRegressionArray,
             borderColor: colors[0],
             backgroundColor: colors[0],

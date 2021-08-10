@@ -715,13 +715,14 @@ td:last-child {
 #bytesRegression {
   margin-top: 40px;
 }
-.hl__prediction {
-  padding-top: 20px;
-}
-.hl__prediction table {
-	font-family: 'Trueno', Arial, Helvetica, sans-serif;
-  font-size: 14px;
+.hl__prediction p {
+	padding-top: 0;
 	font-weight: 300;
+  font-size: 17px;
+	text-align: left;
+}
+.hl__prediction p span {
+  white-space: nowrap;
 }
 .hl__equation {
   min-width: 190px;

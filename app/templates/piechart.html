@@ -38,20 +38,9 @@
             <div class="tab-pane fade" id="bytes-trends" role="tabpanel" aria-labelledby="bytes-trends-tab">
               <div style="height: 300px"><canvas id="bytesTrends"></canvas></div>
               <a href="#" data-toggle="modal" data-target="#bytesModal">Click to enlarge<span class="sr-only">progress by bytes line graph</span></a>
-              <div style="height: 325px"><canvas id="bytesRegression"></canvas></div>
+              <div style="height: 350px"><canvas id="bytesRegression"></canvas></div>
               <div class="hl__prediction">
-                <table class="table table-sm">
-                  <tbody>
-                    <tr>
-                      <td>Linear regression equation</td>
-                      <td class="hl__equation">>y = mx + b</td>
-                    </tr>
-                    <tr>
-                      <td>Projected migration completion</td>
-                      <td class="hl__projection">># days</td>
-                    </tr>
-                  </tbody>
-                </table>
+                <p>Projected completion date: <span class="hl__projection">projection</span></p>
               </div>
             </div>
           </div>
