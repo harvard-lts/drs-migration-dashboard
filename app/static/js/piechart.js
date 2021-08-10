@@ -194,7 +194,7 @@ $(document).ready(function () {
 
         calcRemaining(bytesRemaining, data[i]["gsx$_d2mkx"]["$t"], data[i]["gsx$_cztg3"]["$t"], 12);
         calcRemaining(filesRemaining, data[i]["gsx$_d6ua4"]["$t"], data[i]["gsx$_d415a"]["$t"], 6);
-        calcRemaining(objectsRemaining, data[i]["gsx$_dxj3v"]["$t"], data[i]["gsx$_djhdx"]["$t"], 3);
+        calcRemaining(objectsRemaining, data[i]["gsx$_dxj3v"]["$t"], data[i]["gsx$_djhdx"]["$t"], 6);
       }
 
 
@@ -230,14 +230,15 @@ $(document).ready(function () {
             title: {
               display: true,
               text: 'TB remaining'
-            }
+            },
+            suggestedMin: 0
           }
         }
       };
       let bytesTrendsData = {
         labels: dateArray,
         datasets: [{
-            label: 'Total TB remaining to be verified',
+            label: 'Total remaining to be verified',
             data: bytesRemaining,
             borderColor: colors[2],
             backgroundColor: colors[2],
@@ -293,15 +294,16 @@ $(document).ready(function () {
           y: {
             title: {
               display: true,
-              text: 'MB remaining'
-            }
+              text: 'Millions remaining'
+            },
+            suggestedMin: 0
           }
         }
       };
       let filesTrendsData = {
         labels: dateArray,
         datasets: [{
-            label: 'Total MB remaining to be verified',
+            label: 'Total remaining to be verified',
             data: filesRemaining,
             borderColor: colors[2],
             backgroundColor: colors[2],
@@ -357,15 +359,16 @@ $(document).ready(function () {
           y: {
             title: {
               display: true,
-              text: 'KB Remaining'
-            }
+              text: 'Millions remaining'
+            },
+            suggestedMin: 0
           }
         }
       };
       let objectsTrendsData = {
         labels: dateArray,
         datasets: [{
-            label: 'Total KB remaining to be verified',
+            label: 'Total remaining to be verified',
             data: objectsRemaining,
             borderColor: colors[2],
             backgroundColor: colors[2],
@@ -491,7 +494,8 @@ $(document).ready(function () {
             title: {
               display: true,
               text: 'TB remaining'
-            }
+            },
+            suggestedMin: 0
           }
         }
       };
