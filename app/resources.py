@@ -11,4 +11,4 @@ def define_resources(app):
         return render_template('status.html')
     @app.route('/piechart/')
     def piechart():
-        return redirect(url_for('status'))
+        return redirect(url_for('status'), code=301)
