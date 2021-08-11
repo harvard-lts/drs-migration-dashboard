@@ -8,7 +8,7 @@ version: '3.8'
 services:
 
   drs-migration-dashboard:
-    image: registry.lts.harvard.edu/lts/drs-migration-dashboard:0.0.4
+    image: registry.lts.harvard.edu/lts/drs-migration-dashboard:0.0.5
     build:
       context: .
       dockerfile: DockerfilePub

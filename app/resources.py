@@ -1,4 +1,4 @@
-from flask_restx import Resource, Api
+from flask_restx import Resource
 from flask import request, current_app, make_response, jsonify, render_template
 import os, json
 
@@ -6,15 +6,6 @@ import os, json
 #from . import geoserver_proxy, rest_proxy
 
 def define_resources(app):
-    api = Api(app, version='1.0', title='DRS Migration Dashboard', description='Dashboard to see migration progress for DRS.')
-    dashboard = api.namespace('/', description="Dashboard to see migration progress for DRS.")
-
-    # Heartbeat/health check route
-    @dashboard.route('/version', endpoint="version", methods=['GET'])
-    class Version(Resource):
-        def get(self):
-            version = os.environ.get('APP_VERSION', "NOT FOUND")
-            return {"version": version}
-    @app.route('/piechart/')
+    @app.route('/')
     def piechart():
-        return render_template('piechart.html')
+        return render_template('status.html')
