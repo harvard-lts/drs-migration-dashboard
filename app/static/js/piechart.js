@@ -14,11 +14,11 @@ $(document).ready(function () {
   Chart.defaults.plugins.title.font.lineHeight = 1.5;
 
   // chart colors
-  let colors = ['#c0c0c0','#f8c21c','#a51c30','#eb001b','#414141','#0579b8','#8DBA4B','#3E6F7D','red'];
+  let colors = ['#c0c0c0','#f8c21c','#a51c30','#eb001b','#414141','#0579b8','#3E6F7D','#8DBA4B','red'];
   let lineColor = '#3e6f7d';
 
   // labels
-  let labels = ['Pending', 'In process', 'Failure', 'Unrecoverable', 'Sensitive', 'On hold', 'Success', 'Verified', 'Verified failed'];
+  let labels = ['Pending', 'In process', 'Failure', 'Unrecoverable', 'Sensitive', 'On hold', 'Needs verification', 'Verified', 'Verify failed'];
 
   // google spreadsheet request
   let xmlhttp = new XMLHttpRequest();
@@ -26,7 +26,7 @@ $(document).ready(function () {
     if (this.readyState == 4 && this.status == 200) {
       let data = JSON.parse(this.responseText).feed.entry;
 
-      let i = data.length - 1; // last updated row
+      let i = data.length - 1; // last updated row, data[0] = headers
 
       let date = data[i]["gsx$date"]["$t"];
       let time = data[i]["gsx$time"]["$t"];
@@ -41,9 +41,9 @@ $(document).ready(function () {
         data[i]["gsx$_ciyn3"]["$t"],  // unrecoverable
         data[i]["gsx$_ckd7g"]["$t"],  // sensitive
         data[i]["gsx$_clrrx"]["$t"],  // on hold
-        data[i]["gsx$_cyevm"]["$t"],  // success
+        data[i]["gsx$_cyevm"]["$t"],  // needs verification
         data[i]["gsx$_cztg3"]["$t"],  // verified
-        data[i]["gsx$_d180g"]["$t"]   // verified failed
+        data[i]["gsx$_d180g"]["$t"]   // verify failed
       ];
 
       let bytes_total = data[i]["gsx$_d2mkx"]["$t"]; // total
@@ -56,9 +56,9 @@ $(document).ready(function () {
         data[i]["gsx$_d9ney"]["$t"],  // unrecoverable
         data[i]["gsx$_db1zf"]["$t"],  // sensitive
         data[i]["gsx$_dcgjs"]["$t"],  // on hold
-        data[i]["gsx$_ddv49"]["$t"],  // success
+        data[i]["gsx$_ddv49"]["$t"],  // needs verification
         data[i]["gsx$_d415a"]["$t"],  // verified
-        data[i]["gsx$_d5fpr"]["$t"]   // verified failed
+        data[i]["gsx$_d5fpr"]["$t"]   // verify failed
       ];
 
       let files_total = data[i]["gsx$_d6ua4"]["$t"]; // total
@@ -71,9 +71,9 @@ $(document).ready(function () {
         data[i]["gsx$_dp3nl"]["$t"],    // unrecoverable
         data[i]["gsx$_df9om"]["$t"],    // sensitive
         data[i]["gsx$_dgo93"]["$t"],    // on hold
-        data[i]["gsx$_di2tg"]["$t"],    // success
+        data[i]["gsx$_di2tg"]["$t"],    // needs verification
         data[i]["gsx$_djhdx"]["$t"],    // verified
-        data[i]["gsx$_dw4je"]["$t"]     // verified failed
+        data[i]["gsx$_dw4je"]["$t"]     // verify failed
       ];
 
       let objects_total = data[i]["gsx$_dxj3v"]["$t"]; // total
@@ -81,14 +81,6 @@ $(document).ready(function () {
 
       // bytes chart
       let bytesChartOptions = {
-        legend: {
-          position:'bottom',
-          padding:5,
-          labels: {
-            pointStyle:'circle',
-            usePointStyle:true
-          }
-        },
         plugins: {
           title: {
             display: true,
@@ -101,13 +93,13 @@ $(document).ready(function () {
         }
       };
       let bytesChartData = {
-        labels: labels.slice(0,7),
+        labels: labels.slice(0,9),
         datasets: [
           {
-            backgroundColor: colors.slice(0,7),
-            hoverBackgroundColor: colors.slice(0,7),
+            backgroundColor: colors.slice(0,9),
+            hoverBackgroundColor: colors.slice(0,9),
             borderWidth: 1,
-            data: bytes_data.slice(0,7),
+            data: bytes_data.slice(0,9),
           }
         ]
       };
@@ -122,14 +114,6 @@ $(document).ready(function () {
 
       // files chart
       let filesChartOptions = {
-        legend: {
-          position:'bottom',
-          padding:5,
-          labels: {
-            pointStyle:'circle',
-            usePointStyle:true
-          }
-        },
         plugins: {
           title: {
             display: true,
@@ -142,17 +126,18 @@ $(document).ready(function () {
         }
       };
       let filesChartData = {
-        labels: labels.slice(0,7),
+        labels: labels.slice(0,9),
         datasets: [
           {
-            backgroundColor: colors.slice(0,7),
-            hoverBackgroundColor: colors.slice(0,7),
+
+            backgroundColor: colors.slice(0,9),
+            hoverBackgroundColor: colors.slice(0,9),
             borderWidth: 1,
-            data: files_data.slice(0,7)
+            data: files_data.slice(0,9)
           }
         ]
       };
-      var filesChart = document.getElementById("filesChart");
+      let filesChart = $("#filesChart");
       if (filesChart) {
         new Chart(filesChart, {
           type: 'doughnut',
@@ -163,14 +148,6 @@ $(document).ready(function () {
 
       // objects chart
       let objectsChartOptions = {
-        legend: {
-          position:'bottom',
-          padding:5,
-          labels: {
-            pointStyle:'circle',
-            usePointStyle:true
-          }
-        },
         plugins: {
           title: {
             display: true,
@@ -183,17 +160,17 @@ $(document).ready(function () {
         }
       };
       let objectsChartData = {
-        labels: labels.slice(0,7),
+        labels: labels.slice(0,9),
         datasets: [
           {
-            backgroundColor: colors.slice(0,7),
-            hoverBackgroundColor: colors.slice(0,7),
+            backgroundColor: colors.slice(0,9),
+            hoverBackgroundColor: colors.slice(0,9),
             borderWidth: 1,
-            data: objects_data.slice(0,7)
+            data: objects_data.slice(0,9)
           }
         ]
       };
-      var objectsChart = document.getElementById("objectsChart");
+      let objectsChart = $("#objectsChart");
       if (objectsChart) {
         new Chart(objectsChart, {
           type: 'doughnut',
@@ -202,31 +179,32 @@ $(document).ready(function () {
         });
       }
 
-
       // table views
       createTable("#bytes-numbers", bytes_data, bytes_total, bytes_percent_complete);
       createTable("#files-numbers", files_data, files_total, files_percent_complete);
       createTable("#objects-numbers", objects_data, objects_total, objects_percent_complete);
-
 
       // create arrays for trends graphs
       let dateArray = [];
       let bytesRemaining = [];
       let filesRemaining = [];
       let objectsRemaining = [];
-
       for(i=1;i<data.length;i++){
         dateArray.push(data[i]["gsx$date"]["$t"]); // array of dates for x-axis
 
-        calcRemaining(bytesRemaining, data[i]["gsx$_d2mkx"]["$t"], data[i]["gsx$_cyevm"]["$t"], 12);
-
-        calcRemaining(filesRemaining, data[i]["gsx$_d6ua4"]["$t"], data[i]["gsx$_ddv49"]["$t"], 6);
-
-        calcRemaining(objectsRemaining, data[i]["gsx$_dxj3v"]["$t"], data[i]["gsx$_di2tg"]["$t"], 3);
+        calcRemaining(bytesRemaining, data[i]["gsx$_d2mkx"]["$t"], data[i]["gsx$_cztg3"]["$t"], 12);
+        calcRemaining(filesRemaining, data[i]["gsx$_d6ua4"]["$t"], data[i]["gsx$_d415a"]["$t"], 6);
+        calcRemaining(objectsRemaining, data[i]["gsx$_dxj3v"]["$t"], data[i]["gsx$_djhdx"]["$t"], 6);
       }
+
+
+      let skipped = (ctx, value) => ctx.p0.skip || ctx.p1.skip ? value : undefined;
+      let down = (ctx, value) => ctx.p0.parsed.y > ctx.p1.parsed.y ? value : undefined;
 
       // bytes trends
       let bytesTrendsOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
         plugins: {
           tooltip: {
             mode: 'index',
@@ -252,21 +230,26 @@ $(document).ready(function () {
             title: {
               display: true,
               text: 'TB remaining'
-            }
+            },
+            suggestedMin: 0
           }
         }
       };
       let bytesTrendsData = {
         labels: dateArray,
         datasets: [{
-            label: 'Total TB remaining',
+            label: 'Total remaining to be verified',
             data: bytesRemaining,
             borderColor: colors[2],
             backgroundColor: colors[2],
-            tension: 0.1
+            tension: 0.1,
+            segment: {
+              borderColor: ctx => skipped(ctx, 'rgb(0,0,0,0.2)') || down(ctx, 'rgb(192,75,75)'),
+              borderDash: ctx => skipped(ctx, [6, 6]),
+            }
         }]
       };
-      let bytesTrends = document.getElementById("bytesTrends");
+      let bytesTrends = $("#bytesTrends");
       if (bytesTrends) {
         new Chart(bytesTrends, {
           type: 'line',
@@ -274,7 +257,7 @@ $(document).ready(function () {
           options: bytesTrendsOptions
         });
       }
-      let bytesTrendsModal = document.getElementById("bytesTrendsModal");
+      let bytesTrendsModal = $("#bytesTrendsModal");
       if (bytesTrendsModal) {
         new Chart(bytesTrendsModal, {
           type: 'line',
@@ -285,6 +268,8 @@ $(document).ready(function () {
 
       // files trends
       let filesTrendsOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
         plugins: {
           tooltip: {
             mode: 'index',
@@ -309,22 +294,27 @@ $(document).ready(function () {
           y: {
             title: {
               display: true,
-              text: 'MB remaining'
-            }
+              text: 'Millions remaining'
+            },
+            suggestedMin: 0
           }
         }
       };
       let filesTrendsData = {
         labels: dateArray,
         datasets: [{
-            label: 'Total MB remaining',
+            label: 'Total remaining to be verified',
             data: filesRemaining,
             borderColor: colors[2],
             backgroundColor: colors[2],
-            tension: 0.1
+            tension: 0.1,
+            segment: {
+              borderColor: ctx => skipped(ctx, 'rgb(0,0,0,0.2)') || down(ctx, 'rgb(192,75,75)'),
+              borderDash: ctx => skipped(ctx, [6, 6]),
+            }
         }]
       };
-      let filesTrends = document.getElementById("filesTrends");
+      let filesTrends = $("#filesTrends");
       if (filesTrends) {
         new Chart(filesTrends, {
           type: 'line',
@@ -332,7 +322,7 @@ $(document).ready(function () {
           options: filesTrendsOptions
         });
       }
-      let filesTrendsModal = document.getElementById("filesTrendsModal");
+      let filesTrendsModal = $("#filesTrendsModal");
       if (filesTrendsModal) {
         new Chart(filesTrendsModal, {
           type: 'line',
@@ -343,6 +333,8 @@ $(document).ready(function () {
 
       // objects trends
       let objectsTrendsOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
         plugins: {
           tooltip: {
             mode: 'index',
@@ -367,22 +359,27 @@ $(document).ready(function () {
           y: {
             title: {
               display: true,
-              text: 'KB Remaining'
-            }
+              text: 'Millions remaining'
+            },
+            suggestedMin: 0
           }
         }
       };
       let objectsTrendsData = {
         labels: dateArray,
         datasets: [{
-            label: 'Total KB remaining',
+            label: 'Total remaining to be verified',
             data: objectsRemaining,
             borderColor: colors[2],
             backgroundColor: colors[2],
-            tension: 0.1
+            tension: 0.1,
+            segment: {
+              borderColor: ctx => skipped(ctx, 'rgb(0,0,0,0.2)') || down(ctx, 'rgb(192,75,75)'),
+              borderDash: ctx => skipped(ctx, [6, 6]),
+            }
         }]
       };
-      let objectsTrends = document.getElementById("objectsTrends");
+      let objectsTrends = $("#objectsTrends");
       if (objectsTrends) {
         new Chart(objectsTrends, {
           type: 'line',
@@ -390,7 +387,7 @@ $(document).ready(function () {
           options: objectsTrendsOptions
         });
       }
-      let objectsTrendsModal = document.getElementById("objectsTrendsModal");
+      let objectsTrendsModal = $("#objectsTrendsModal");
       if (objectsTrendsModal) {
         new Chart(objectsTrendsModal, {
           type: 'line',
@@ -400,12 +397,139 @@ $(document).ready(function () {
       }
 
 
-      // list of object ids for verified_failed
-      let objFailed = [482556371, 482559255, 482554466, 482559263, 482559259, 482556387, 482559267]
+      // list of object ids for verify_failed
+      let objFailed = ["482556371", "482559255", "482554466", "482559263", "482559259", "482556387", "482559267", "482583448", "402837016", "408748157", "408788027", "408807903", "409015554", "408756445", "409006283", "482659885", "409200207", "409023575", "482656585", "408959133", "409224029", "409022459", "409173959", "409016769", "409269448", "409684124", "409731627", "409376999", "409688525", "409645530", "409411763", "482757873", "409509889", "482765298", "409689690", "409547468", "409524660", "409830201", "409955289", "409938021", "482762430", "409956657", "48491625", "423493964"]
       for(i=0;i<objFailed.length;i++){
         $("#objects-failed table tbody").append(
           '<tr><td>'+objFailed[i]+'</td></tr>'
         );
+      }
+
+      // bytes regression
+      let bytesScatterArray = []; // x and y values to plot
+      let lr = {}; // object for regression stats
+      let day = 0;
+      linearRegression(bytesRemaining, bytesScatterArray);
+
+      // calculate regression + create objects for scatter plot
+      function linearRegression(y, scatterPlot){
+        // let lr = {}; defined globally
+        let n = 0;
+        let sum_x = 0;
+        let sum_y = 0;
+        let sum_xy = 0;
+        let sum_xx = 0;
+        let sum_yy = 0;
+
+        for (i = 12; i < y.length; i++) {
+          // skip days we didn't collect data
+          if (!(isNaN(y[i]))){
+            sum_x += day;
+            sum_y += y[i];
+            sum_xy += (day*y[i]);
+            sum_xx += (day*day);
+            sum_yy += (y[i]*y[i]);
+            n += 1;
+
+            scatterPlot.push({x: day, y: y[i]});
+          }
+
+          day += 1;
+        }
+
+        lr['slope'] = (n * sum_xy - sum_x * sum_y) / (n*sum_xx - sum_x * sum_x);
+        lr['intercept'] = (sum_y - lr.slope * sum_x)/n;
+        lr['r2'] = Math.pow((n*sum_xy - sum_x*sum_y)/Math.sqrt((n*sum_xx-sum_x*sum_x)*(n*sum_yy-sum_y*sum_y)),2);
+      }
+
+      let m = lr['slope'];
+      let b = lr['intercept'];
+      let bytesRegressionArray = [
+        {x: 0, y: b},
+        {x: day - 1, y: m*(day - 1) + b}
+      ];
+
+      // equation: y = mx * b
+      let equation = "y = " + m.toFixed(2) + "x + " + b.toFixed(2);
+      $(".hl__equation").html(equation)
+
+      // projection when y = 0, minus # of days since started the verification process
+      let projection = (-b/m).toFixed(0)-(day);
+
+      // calculate projected date of migration completion
+      let targetDate = new Date();
+      targetDate.setDate(targetDate.getDate() + projection);
+      let dd = targetDate.getDate();
+      let mm = targetDate.getMonth() + 1; // 0 is January, so we must add 1
+      let yyyy = targetDate.getFullYear();
+
+      var dateString = mm + "/" + dd + "/" + yyyy;
+
+      $(".hl__projection").html(dateString + " (" + projection + " days away)");
+
+      let bytesRegressionOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          title: {
+            display: true,
+            text: "Best fit regression",
+            padding:{
+              top:10,
+              bottom:10
+            }
+          },
+          legend: {
+            position: 'bottom'
+          }
+        },
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: 'Days since started verifying data (7/27/21)'
+            }
+          },
+          y: {
+            title: {
+              display: true,
+              text: 'TB remaining'
+            },
+            suggestedMin: 0
+          }
+        }
+      };
+      let bytesRegressionData = {
+        datasets: [{
+            label: 'Data',
+            data: bytesScatterArray,
+            borderColor: colors[2],
+            backgroundColor: colors[2],
+            type: 'scatter'
+        },{
+            label: 'Linear regression: ' + equation,
+            data: bytesRegressionArray,
+            borderColor: colors[0],
+            backgroundColor: colors[0],
+            tension: 0.1,
+            type: 'line'
+        }]
+      };
+      let bytesRegression = $("#bytesRegression");
+      if (bytesRegression) {
+        new Chart(bytesRegression, {
+          type: 'scatter',
+          data: bytesRegressionData,
+          options: bytesRegressionOptions
+        });
+      }
+      let bytesRegressionModal = $("#bytesRegressionModal");
+      if (bytesRegressionModal) {
+        new Chart(bytesRegressionModal, {
+          type: 'scatter',
+          data: bytesRegressionData,
+          options: bytesRegressionOptions
+        });
       }
     }
   };
@@ -438,8 +562,8 @@ $(document).ready(function () {
   }
 
   // create array of total amount remaining
-  function calcRemaining(array, total, success, exponent){
-    let remaining = parseInt(total) - parseInt(success);
+  function calcRemaining(array, total, verified, exponent){
+    let remaining = parseInt(total) - parseInt(verified);
     array.push(remaining/(10**exponent));
   }
 });

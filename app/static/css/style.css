@@ -693,8 +693,17 @@ th {
 td:last-child {
   text-align: right;
 }
+#objects-failed tbody {
+  display: flex;
+  flex-wrap: wrap;
+}
+#objects-failed tr {
+  width: 33%;
+  border-top: 1px solid #dee2e6;
+}
 #objects-failed td {
   text-align: left;
+  border-top: 0;
 }
 
 .card-body a {
@@ -706,14 +715,15 @@ td:last-child {
 #bytesRegression {
   margin-top: 40px;
 }
-.hl__prediction {
+.hl__prediction p {
+  color: #1e1e1e;
+  font-weight: 600;
+  font-size: 17px;
+	text-align: left;
+}
+.hl__prediction p span {
+  white-space: nowrap;
+}
+.modal .hl__prediction p {
   padding-top: 20px;
-}
-.hl__prediction table {
-	font-family: 'Trueno', Arial, Helvetica, sans-serif;
-  font-size: 14px;
-	font-weight: 300;
-}
-.hl__equation {
-  min-width: 190px;
 }
