@@ -8,6 +8,9 @@ jwtkeys.py
 *.log
 /logs/*
 !/logs/.keep
+# Data Files
+/app/static/files/*
+!/app/static/files/.keep
 # Editor configs
 *.editorconfig
 .project

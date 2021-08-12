@@ -1,4 +1,5 @@
 logs/
+app/static/files/
 .bash_history
 # Environment variables
 .env
