@@ -1,6 +1,10 @@
 {% extends 'main-layout.html' %}
 {% block chart_js %}
-<script src="{{ url_for('static', filename='js/piechart.js') }}"></script>
+<script>
+  let migration_data = {{ migration_data|tojson }};
+  let failed_list = {{ failed_list|tojson }};
+</script>
+<script src="{{ url_for('static', filename='js/status.js') }}"></script>
 {% endblock %}
 {% block content %}
 <div class="container">
