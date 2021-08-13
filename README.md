@@ -1,6 +1,11 @@
 # drs-migration-dashboard
 A tool to report and visualize the status of data migration for the Harvard Library Digital Repository Service
 
+After following the setup instructions and starting your Docker container, you should have a running Flask application with the following routes:
+
+* The main Migration Dashboard page: https://localhost:3001/migrationstatus
+* The Health Check page: https://localhost:3001/migrationstatus/healthcheck
+
 ## Technology Stack
 ##### Language
 Python
@@ -40,10 +45,10 @@ This step is only required if additional python packages must be installed durin
 
 ##### Run docker exec to execute a shell in the container by name
 
-Open a shell using the exec command to access the hgl-downloader container.
+Open a shell using the exec command to access the drs-migration-dashboard container.
 
 ```
-docker exec -it hgl-downloader bash
+docker exec -it drs-migration-dashboard bash
 ```
 
 ##### Install a new pip package
