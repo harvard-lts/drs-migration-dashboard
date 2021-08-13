@@ -3,8 +3,8 @@ A tool to report and visualize the status of data migration for the Harvard Libr
 
 After following the setup instructions and starting your Docker container, you should have a running Flask application with the following routes:
 
-* The main migration dashboard page: https://localhost:3001/migrationstatus
-* A Health Check page here: https://localhost:3001/migrationstatus/healthcheck
+* The main Migration Dashboard page: https://localhost:3001/migrationstatus
+* The Health Check page: https://localhost:3001/migrationstatus/healthcheck
 
 ## Technology Stack
 ##### Language
