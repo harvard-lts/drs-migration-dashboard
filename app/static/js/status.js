@@ -25,10 +25,8 @@ $(document).ready(function () {
   let i = data.length - 1; // last updated row, data[0] = headers
 
   let date = data[i]["Date"];
-  let time = data[i]["Time"];
 
   $(".hl__date").html(date);
-  $(".hl__time").html(time);
 
   let bytes_data = [
     data[i]["PendingBytes"], //pending
