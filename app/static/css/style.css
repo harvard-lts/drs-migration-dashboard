@@ -676,7 +676,7 @@ dd {
   margin-bottom:1rem;
   color:#414141;
   font-family: monospace;
-  font-size: 15px;
+  font-size: 14px;
 }
 .tab-pane p {
   font-family: 'Trueno', Arial, Helvetica, sans-serif;
@@ -687,9 +687,26 @@ dd {
   text-align: center;
   padding-top: 8px;
 }
-th {
-  font-weight: normal;
+.tab-pane table + p {
+	font-size: 15px;
+	font-weight: 300;
+	text-align: left;
+	line-height: normal;
+	color: #414141;
 }
+.table-sm th {
+  font-family: 'Trueno', Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: #1e1e1e;
+  padding-top: 20px;
+  border-top: 0;
+}
+table:nth-child(2) > tbody:nth-child(1) > tr:nth-child(1) > th:nth-child(1) {
+ padding-top: 0;
+}
+
+
 td:last-child {
   text-align: right;
 }

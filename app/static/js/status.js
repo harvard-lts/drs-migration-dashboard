@@ -4,21 +4,21 @@ $(document).ready(function () {
   Chart.defaults.color = '#1e1e1e';
   Chart.defaults.font.family = 'Trueno';
   Chart.defaults.font.size = 14;
-  // Chart.defaults.font.style = 'normal';
   Chart.defaults.font.weight = 300;
   Chart.defaults.font.lineHeight = 1.733;
 
-  // Chart.defaults.plugins.title.font.color = #000;
   Chart.defaults.plugins.title.font.size = 20;
   Chart.defaults.plugins.title.font.weight = 700;
   Chart.defaults.plugins.title.font.lineHeight = 1.5;
 
   // chart colors
   let colors = ['#c0c0c0','#f8c21c','#a51c30','#eb001b','#414141','#0579b8','#3E6F7D','#8DBA4B','red'];
-  let lineColor = '#3e6f7d';
+  let chartColors = ['#414141','#f8c21c','#a51c30','#8DBA4B'];
+  let lineColor = '#a51c30';
 
   // labels
-  let labels = ['Pending', 'In process', 'Failure', 'Unrecoverable', 'Sensitive', 'On hold', 'Needs verification', 'Verified', 'Verify failed'];
+  let chartLabels = ['Pending', 'Migrated', 'Failed migration', 'Verified'];
+  let tableLabels = ['Pending','In process','On hold','Sensitive','Needs verification','Failure','Verify failed','Verified','Unrecoverable*'];
 
   let data = JSON.parse(migration_data);
 
@@ -29,49 +29,56 @@ $(document).ready(function () {
   $(".hl__date").html(date);
 
   let bytes_data = [
-    data[i]["PendingBytes"], //pending
-    data[i]["In ProcessBytes"],  // in process
-    data[i]["FailureBytes"],  // failure
-    data[i]["UnrecoverableBytes"],  // unrecoverable
-    data[i]["SensitiveBytes"],  // sensitive
-    data[i]["On holdBytes"],  // on hold
-    data[i]["Needs verificationBytes"],  // success
-    data[i]["VerifiedBytes"],  // verified
-    data[i]["Verify failedBytes"]   // verified failed
+    data[i]["PendingBytes"],            // pending
+    data[i]["In ProcessBytes"],         // in process
+    data[i]["On holdBytes"],            // on hold
+    data[i]["SensitiveBytes"],          // sensitive
+    data[i]["Needs verificationBytes"], // needs verification
+    data[i]["FailureBytes"],            // failure
+    data[i]["Verify failedBytes"],      // verify failed
+    data[i]["VerifiedBytes"],           // verified
+    data[i]["UnrecoverableBytes"]       // unrecoverable
   ];
 
   let bytes_total = data[i]["TotalBytes"]; // total
   let bytes_percent_complete = data[i]["% CompleteBytes"]; // % complete
 
   let files_data = [
-    data[i]["PendingFiles"], //pending
-    data[i]["In ProcessFiles"],  // in process
-    data[i]["FailureFiles"],  // failure
-    data[i]["UnrecoverableFiles"],  // unrecoverable
-    data[i]["SensitiveFiles"],  // sensitive
-    data[i]["On holdFiles"],  // on hold
-    data[i]["Needs verificationFiles"],  // success
-    data[i]["VerifiedFiles"],  // verified
-    data[i]["Verify failedFiles"]   // verified failed
+    data[i]["PendingFiles"],            // pending
+    data[i]["In ProcessFiles"],         // in process
+    data[i]["On holdFiles"],            // on hold
+    data[i]["SensitiveFiles"],          // sensitive
+    data[i]["Needs verificationFiles"], // needs verification
+    data[i]["FailureFiles"],            // failure
+    data[i]["Verify failedFiles"],      // verify failed
+    data[i]["VerifiedFiles"],           // verified
+    data[i]["UnrecoverableFiles"]       // unrecoverable
   ];
 
   let files_total = data[i]["TotalFiles"]; // total
   let files_percent_complete = data[i]["% CompleteFiles"]; // % complete
 
   let objects_data = [
-    data[i]["PendingObject"], //pending
-    data[i]["In ProcessObject"],  // in process
-    data[i]["FailureObject"],  // failure
-    data[i]["UnrecoverableObject"],  // unrecoverable
-    data[i]["SensitiveObject"],  // sensitive
-    data[i]["On holdObject"],  // on hold
-    data[i]["Needs verificationObject"],  // success
-    data[i]["VerifiedObject"],  // verified
-    data[i]["Verify failedObject"]   // verified failed
+    data[i]["PendingObject"],             // pending
+    data[i]["In ProcessObject"],          // in process
+    data[i]["On holdObject"],             // on hold
+    data[i]["SensitiveObject"],           // sensitive
+    data[i]["Needs verificationObject"],  // needs verification
+    data[i]["FailureObject"],             // failure
+    data[i]["Verify failedObject"],       // verify failed
+    data[i]["VerifiedObject"],            // verified
+    data[i]["UnrecoverableObject"]        // unrecoverable
   ];
 
   let objects_total = data[i]["TotalObject"]; // total
   let objects_percent_complete = data[i]["% CompleteObject"]; // % complete
+
+  let bytes_chart = [];
+  let files_chart = [];
+  let objects_chart = [];
+  createChartData(bytes_data,bytes_chart);
+  createChartData(files_data,files_chart);
+  createChartData(objects_data,objects_chart);
 
   // bytes chart
   let bytesChartOptions = {
@@ -87,13 +94,13 @@ $(document).ready(function () {
     }
   };
   let bytesChartData = {
-    labels: labels.slice(0,9),
+    labels: chartLabels.slice(0,4),
     datasets: [
       {
-        backgroundColor: colors.slice(0,9),
-        hoverBackgroundColor: colors.slice(0,9),
+        backgroundColor: chartColors.slice(0,4),
+        hoverBackgroundColor: chartColors.slice(0,4),
         borderWidth: 1,
-        data: bytes_data.slice(0,9),
+        data: bytes_chart.slice(0,4),
       }
     ]
   };
@@ -120,14 +127,14 @@ $(document).ready(function () {
     }
   };
   let filesChartData = {
-    labels: labels.slice(0,9),
+    labels: chartLabels.slice(0,4),
     datasets: [
       {
 
-        backgroundColor: colors.slice(0,9),
-        hoverBackgroundColor: colors.slice(0,9),
+        backgroundColor: chartColors.slice(0,4),
+        hoverBackgroundColor: chartColors.slice(0,4),
         borderWidth: 1,
-        data: files_data.slice(0,9)
+        data: files_chart.slice(0,4)
       }
     ]
   };
@@ -154,13 +161,13 @@ $(document).ready(function () {
     }
   };
   let objectsChartData = {
-    labels: labels.slice(0,9),
+    labels: chartLabels.slice(0,4),
     datasets: [
       {
-        backgroundColor: colors.slice(0,9),
-        hoverBackgroundColor: colors.slice(0,9),
+        backgroundColor: chartColors.slice(0,4),
+        hoverBackgroundColor: chartColors.slice(0,4),
         borderWidth: 1,
-        data: objects_data.slice(0,9)
+        data: objects_chart.slice(0,4)
       }
     ]
   };
@@ -188,12 +195,16 @@ $(document).ready(function () {
 
     calcRemaining(bytesRemaining, data[i]["TotalBytes"], data[i]["VerifiedBytes"], 12);
     calcRemaining(filesRemaining, data[i]["TotalFiles"], data[i]["VerifiedFiles"], 6);
-    calcRemaining(objectsRemaining, data[i]["TotalObject"], data[i]["VerifiedObject"], 3);
+    calcRemaining(objectsRemaining, data[i]["TotalObject"], data[i]["VerifiedObject"], 6);
   }
 
 
   let skipped = (ctx, value) => ctx.p0.skip || ctx.p1.skip ? value : undefined;
   let down = (ctx, value) => ctx.p0.parsed.y > ctx.p1.parsed.y ? value : undefined;
+  let skippedSegment = {
+    borderColor: ctx => skipped(ctx, 'rgb(0,0,0,0.2)') || down(ctx, 'rgb(192,75,75)'),
+    borderDash: ctx => skipped(ctx, [6, 6]),
+  }
 
   // bytes trends
   let bytesTrendsOptions = {
@@ -234,13 +245,10 @@ $(document).ready(function () {
     datasets: [{
         label: 'Total remaining to be verified',
         data: bytesRemaining,
-        borderColor: colors[2],
-        backgroundColor: colors[2],
+        borderColor: lineColor,
+        backgroundColor: lineColor,
         tension: 0.1,
-        segment: {
-          borderColor: ctx => skipped(ctx, 'rgb(0,0,0,0.2)') || down(ctx, 'rgb(192,75,75)'),
-          borderDash: ctx => skipped(ctx, [6, 6]),
-        }
+        segment: skippedSegment
     }]
   };
   let bytesTrends = $("#bytesTrends");
@@ -299,13 +307,10 @@ $(document).ready(function () {
     datasets: [{
         label: 'Total remaining to be verified',
         data: filesRemaining,
-        borderColor: colors[2],
-        backgroundColor: colors[2],
+        borderColor: lineColor,
+        backgroundColor: lineColor,
         tension: 0.1,
-        segment: {
-          borderColor: ctx => skipped(ctx, 'rgb(0,0,0,0.2)') || down(ctx, 'rgb(192,75,75)'),
-          borderDash: ctx => skipped(ctx, [6, 6]),
-        }
+        segment: skippedSegment
     }]
   };
   let filesTrends = $("#filesTrends");
@@ -364,13 +369,10 @@ $(document).ready(function () {
     datasets: [{
         label: 'Total remaining to be verified',
         data: objectsRemaining,
-        borderColor: colors[2],
-        backgroundColor: colors[2],
+        borderColor: lineColor,
+        backgroundColor: lineColor,
         tension: 0.1,
-        segment: {
-          borderColor: ctx => skipped(ctx, 'rgb(0,0,0,0.2)') || down(ctx, 'rgb(192,75,75)'),
-          borderDash: ctx => skipped(ctx, [6, 6]),
-        }
+        segment: skippedSegment
     }]
   };
   let objectsTrends = $("#objectsTrends");
@@ -497,8 +499,8 @@ $(document).ready(function () {
     datasets: [{
         label: 'Data',
         data: bytesScatterArray,
-        borderColor: colors[2],
-        backgroundColor: colors[2],
+        borderColor: lineColor,
+        backgroundColor: lineColor,
         type: 'scatter'
     },{
         label: 'Linear regression: ' + equation,
@@ -526,17 +528,57 @@ $(document).ready(function () {
     });
   }
 
+  // aggregate data for chart view
+  function createChartData(dataArray, newArray) {
+    newArray.push(
+      parseInt(dataArray[0])+parseInt(dataArray[1])+parseInt(dataArray[2])+parseInt(dataArray[3]),
+      parseInt(dataArray[4]),
+      parseInt(dataArray[5])+parseInt(dataArray[6]),
+      parseInt(dataArray[7])
+    );
+    console.log(newArray);
+  }
+
   // create tables
   function createTable(dataId, data, dataTotal, dataComplete){
     let $el = $(dataId);
     let dataTable = $el.find("tbody");
-    for(i=0;i<labels.length;i++){
+
+    // Pending group
+    $(dataTable).append(
+      '<tr><th colspan="2">Pending</th></tr>'
+    );
+    for(i=0;i<4;i++){
       $(dataTable).append(
-        '<tr><td>'+labels[i]+'</td><td>'+numberWithCommas(data[i])+'</td></tr>'
+        '<tr><td>'+tableLabels[i]+'</td><td>'+numberWithCommas(data[i])+'</td></tr>'
       );
     }
+
+    // Migrated group
     $(dataTable).append(
-      '<tr><td>Total</td><td>'+numberWithCommas(dataTotal)+'</td></tr><tr><td>% complete</td><td>'+dataComplete+'</td></tr>'
+      '<tr><th colspan="2">Migrated</th></tr><tr><td>'+tableLabels[4]+'</td><td>'+numberWithCommas(data[4])+'</td></tr><tr><th colspan="2">Failed migration</th></tr>'
+    );
+
+    // Failed migration group
+    for(i=5;i<7;i++){
+      $(dataTable).append(
+        '<tr><td>'+tableLabels[i]+'</td><td>'+numberWithCommas(data[i])+'</td></tr>'
+      );
+    }
+
+    // Verified group
+    $(dataTable).append(
+      '<tr><th colspan="2">Verified</th></tr><tr><td>'+tableLabels[7]+'</td><td>'+numberWithCommas(data[7])+'</td></tr>'
+    );
+
+    // Total calculations
+    $(dataTable).append(
+      '<tr><th colspan="2">Totals</th></tr><tr><td>Total</td><td>'+numberWithCommas(dataTotal)+'</td></tr><tr><td>% complete</td><td>'+dataComplete+'</td></tr>'
+    );
+
+    // Unrecoverable
+    $el.append(
+      '<p>*'+numberWithCommas(data[data.length-1])+' unrecoverable items will not be migrated</p>'
     );
   }
 
