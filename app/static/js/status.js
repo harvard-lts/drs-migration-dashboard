@@ -42,6 +42,7 @@ $(document).ready(function () {
 
   let bytes_total = data[i]["TotalBytes"]; // total
   let bytes_percent_complete = data[i]["% CompleteBytes"]; // % complete
+  let bytes_percent_migrated = Math.floor(((data[i]["Needs verificationBytes"]/data[i]["TotalBytes"])*100)).toFixed(0); // % moved
 
   let files_data = [
     data[i]["PendingFiles"],            // pending
@@ -57,6 +58,7 @@ $(document).ready(function () {
 
   let files_total = data[i]["TotalFiles"]; // total
   let files_percent_complete = data[i]["% CompleteFiles"]; // % complete
+  let files_percent_migrated = Math.floor(((data[i]["Needs verificationFiles"]/data[i]["TotalFiles"])*100)).toFixed(0); // % moved
 
   let objects_data = [
     data[i]["PendingObject"],             // pending
@@ -72,6 +74,7 @@ $(document).ready(function () {
 
   let objects_total = data[i]["TotalObject"]; // total
   let objects_percent_complete = data[i]["% CompleteObject"]; // % complete
+  let objects_percent_migrated = Math.floor(((data[i]["Needs verificationObject"]/data[i]["TotalObject"])*100)).toFixed(0); // % moved
 
   let bytes_chart = [];
   let files_chart = [];
@@ -181,9 +184,9 @@ $(document).ready(function () {
   }
 
   // table views
-  createTable("#bytes-numbers", bytes_data, bytes_total, bytes_percent_complete);
-  createTable("#files-numbers", files_data, files_total, files_percent_complete);
-  createTable("#objects-numbers", objects_data, objects_total, objects_percent_complete);
+  createTable("#bytes-numbers", bytes_data, bytes_total, bytes_percent_migrated, bytes_percent_complete);
+  createTable("#files-numbers", files_data, files_total, files_percent_migrated, files_percent_complete);
+  createTable("#objects-numbers", objects_data, objects_total, objects_percent_migrated, objects_percent_complete);
 
   // create arrays for trends graphs
   let dateArray = [];
@@ -540,7 +543,7 @@ $(document).ready(function () {
   }
 
   // create tables
-  function createTable(dataId, data, dataTotal, dataComplete){
+  function createTable(dataId, data, dataTotal, dataMigrated, dataComplete){
     let $el = $(dataId);
     let dataTable = $el.find("tbody");
 
@@ -573,7 +576,7 @@ $(document).ready(function () {
 
     // Total calculations
     $(dataTable).append(
-      '<tr><th colspan="2">Totals</th></tr><tr><td>Total</td><td>'+numberWithCommas(dataTotal)+'</td></tr><tr><td>% complete</td><td>'+dataComplete+'</td></tr>'
+      '<tr><th colspan="2">Totals</th></tr><tr><td>Total</td><td>'+numberWithCommas(dataTotal)+'</td></tr><tr><td>% migrated</td><td>'+dataMigrated+'%</td></tr>'+'</td></tr><tr><td>% verified</td><td>'+dataComplete+'</td></tr>'
     );
 
     // Unrecoverable
