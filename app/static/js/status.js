@@ -396,14 +396,6 @@ $(document).ready(function () {
   }
 
 
-  // list of object ids for verify_failed
-  let objFailed = JSON.parse(failed_list);
-  for(i=0;i<objFailed.length;i++){
-    $("#objects-failed table tbody").append(
-      '<tr><td>'+objFailed[i]['FailedItems']+'</td></tr>'
-    );
-  }
-
   // bytes regression
   let bytesScatterArray = []; // x and y values to plot
   let lr = {}; // object for regression stats
