@@ -2,7 +2,6 @@
 {% block chart_js %}
 <script>
   let migration_data = {{ migration_data|tojson }};
-  let failed_list = {{ failed_list|tojson }};
 </script>
 <script src="{{ url_for('static', filename='js/status.js') }}"></script>
 {% endblock %}
@@ -117,7 +116,7 @@
             </div>
             <div class="tab-pane fade" id="objects-failed" role="tabpanel" aria-labelledby="objects-failed-tab">
               <p>Verify_failed object IDs</p>
-              <table class="table table-sm"><tbody></tbody></table>
+              <p><a href="/migrationstatus/download-failed-files/">Download list of verify_failed object IDs</a></p>
             </div>
           </div>
         </div>
