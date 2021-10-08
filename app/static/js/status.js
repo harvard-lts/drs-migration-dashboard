@@ -196,9 +196,9 @@ $(document).ready(function () {
   for(i=1;i<data.length;i++){
     dateArray.push(data[i]["Date"]); // array of dates for x-axis
 
-    calcRemaining(bytesRemaining, data[i]["TotalBytes"], data[i]["VerifiedBytes"], 12);
-    calcRemaining(filesRemaining, data[i]["TotalFiles"], data[i]["VerifiedFiles"], 6);
-    calcRemaining(objectsRemaining, data[i]["TotalObject"], data[i]["VerifiedObject"], 6);
+    calcRemaining(bytesRemaining, data[i]["TotalBytes"], data[i]["VerifiedBytes"], data[i]["UnrecoverableBytes"], 12);
+    calcRemaining(filesRemaining, data[i]["TotalFiles"], data[i]["VerifiedFiles"], data[i]["UnrecoverableFiles"], 6);
+    calcRemaining(objectsRemaining, data[i]["TotalObject"], data[i]["VerifiedObject"], data[i]["UnrecoverableObject"], 6);
   }
 
 
@@ -583,8 +583,8 @@ $(document).ready(function () {
   }
 
   // create array of total amount remaining
-  function calcRemaining(array, total, verified, exponent){
-    let remaining = parseInt(total) - parseInt(verified);
+  function calcRemaining(array, total, verified, unrecoverable, xponent){
+    let remaining = parseInt(total) - parseInt(verified) - parseInt(unrecoverable);
     array.push(remaining/(10**exponent));
   }
 });
