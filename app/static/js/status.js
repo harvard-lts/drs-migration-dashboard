@@ -40,9 +40,9 @@ $(document).ready(function () {
     data[i]["UnrecoverableBytes"]       // unrecoverable
   ];
 
-  let bytes_total = data[i]["TotalBytes"]; // total
-  let bytes_percent_complete = data[i]["% CompleteBytes"]; // % complete
-  let bytes_percent_migrated = Math.floor(((data[i]["Needs verificationBytes"]/data[i]["TotalBytes"])*100)).toFixed(0); // % moved
+  let bytes_total = data[i]["TotalBytes"] - data[i]["UnrecoverableBytes"]; // total to migrate (excludes unrecoverable)
+  let bytes_percent_complete = Math.floor(((data[i]["VerifiedBytes"]/bytes_total)*100)).toFixed(0); // % verified
+  let bytes_percent_migrated = Math.floor(((data[i]["Needs verificationBytes"]/bytes_total)*100)).toFixed(0); // % migrated
 
   let files_data = [
     data[i]["PendingFiles"],            // pending
@@ -56,9 +56,9 @@ $(document).ready(function () {
     data[i]["UnrecoverableFiles"]       // unrecoverable
   ];
 
-  let files_total = data[i]["TotalFiles"]; // total
-  let files_percent_complete = data[i]["% CompleteFiles"]; // % complete
-  let files_percent_migrated = Math.floor(((data[i]["Needs verificationFiles"]/data[i]["TotalFiles"])*100)).toFixed(0); // % moved
+  let files_total = data[i]["TotalFiles"] - data[i]["UnrecoverableFiles"]; // total to migrate (excludes unrecoverable)
+  let files_percent_complete = Math.floor(((data[i]["VerifiedFiles"]/files_total)*100)).toFixed(0); // % verified
+  let files_percent_migrated = Math.floor(((data[i]["Needs verificationFiles"]/files_total)*100)).toFixed(0); // % migrated
 
   let objects_data = [
     data[i]["PendingObject"],             // pending
@@ -72,9 +72,9 @@ $(document).ready(function () {
     data[i]["UnrecoverableObject"]        // unrecoverable
   ];
 
-  let objects_total = data[i]["TotalObject"]; // total
-  let objects_percent_complete = data[i]["% CompleteObject"]; // % complete
-  let objects_percent_migrated = Math.floor(((data[i]["Needs verificationObject"]/data[i]["TotalObject"])*100)).toFixed(0); // % moved
+  let objects_total = data[i]["TotalObject"] - data[i]["UnrecoverableObject"]; // total to migrate (excludes unrecoverable)
+  let objects_percent_complete = Math.floor(((data[i]["VerifiedObject"]/objects_total)*100)).toFixed(0); // % verified
+  let objects_percent_migrated = Math.floor(((data[i]["Needs verificationObject"]/objects_total)*100)).toFixed(0); // % migrated
 
   let bytes_chart = [];
   let files_chart = [];
@@ -196,9 +196,9 @@ $(document).ready(function () {
   for(i=1;i<data.length;i++){
     dateArray.push(data[i]["Date"]); // array of dates for x-axis
 
-    calcRemaining(bytesRemaining, data[i]["TotalBytes"], data[i]["VerifiedBytes"], 12);
-    calcRemaining(filesRemaining, data[i]["TotalFiles"], data[i]["VerifiedFiles"], 6);
-    calcRemaining(objectsRemaining, data[i]["TotalObject"], data[i]["VerifiedObject"], 6);
+    calcRemaining(bytesRemaining, data[i]["TotalBytes"], data[i]["VerifiedBytes"], data[i]["UnrecoverableBytes"], 12);
+    calcRemaining(filesRemaining, data[i]["TotalFiles"], data[i]["VerifiedFiles"], data[i]["UnrecoverableFiles"], 6);
+    calcRemaining(objectsRemaining, data[i]["TotalObject"], data[i]["VerifiedObject"], data[i]["UnrecoverableObject"], 6);
   }
 
 
@@ -412,7 +412,7 @@ $(document).ready(function () {
     let sum_xx = 0;
     let sum_yy = 0;
 
-    for (i = 12; i < y.length; i++) {
+    for (i = 78; i < y.length; i++) {
       // skip days we didn't collect data
       if (!(isNaN(y[i]))){
         sum_x += day;
@@ -478,7 +478,7 @@ $(document).ready(function () {
       x: {
         title: {
           display: true,
-          text: 'Days since started verifying data (7/27/21)'
+          text: 'Days since started big batch verification (10/1/21)'
         }
       },
       y: {
@@ -568,7 +568,7 @@ $(document).ready(function () {
 
     // Total calculations
     $(dataTable).append(
-      '<tr><th colspan="2">Totals</th></tr><tr><td>Total</td><td>'+numberWithCommas(dataTotal)+'</td></tr><tr><td>% migrated</td><td>'+dataMigrated+'%</td></tr>'+'</td></tr><tr><td>% verified</td><td>'+dataComplete+'</td></tr>'
+      '<tr><th colspan="2">Totals</th></tr><tr><td>Total</td><td>'+numberWithCommas(dataTotal)+'</td></tr><tr><td>% migrated</td><td>'+dataMigrated+'%</td></tr>'+'</td></tr><tr><td>% verified</td><td>'+dataComplete+'%</td></tr>'
     );
 
     // Unrecoverable
@@ -583,8 +583,8 @@ $(document).ready(function () {
   }
 
   // create array of total amount remaining
-  function calcRemaining(array, total, verified, exponent){
-    let remaining = parseInt(total) - parseInt(verified);
+  function calcRemaining(array, total, verified, unrecoverable, exponent){
+    let remaining = parseInt(total) - parseInt(verified) - parseInt(unrecoverable);
     array.push(remaining/(10**exponent));
   }
 });
