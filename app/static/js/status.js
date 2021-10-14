@@ -568,7 +568,7 @@ $(document).ready(function () {
 
     // Total calculations
     $(dataTable).append(
-      '<tr><th colspan="2">Totals</th></tr><tr><td>Total</td><td>'+numberWithCommas(dataTotal)+'</td></tr><tr><td>% migrated</td><td>'+dataMigrated+'%</td></tr>'+'</td></tr><tr><td>% verified</td><td>'+dataComplete+'%</td></tr>'
+      '<tr><th colspan="2">Totals</th></tr><tr><td>Total</td><td>'+numberWithCommas(dataTotal)+'</td></tr><tr><td>% awaiting verification</td><td>'+dataMigrated+'%</td></tr>'+'</td></tr><tr><td>% verified</td><td>'+dataComplete+'%</td></tr>'
     );
 
     // Unrecoverable
